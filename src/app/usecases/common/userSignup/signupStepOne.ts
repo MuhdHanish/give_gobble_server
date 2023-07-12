@@ -20,3 +20,4 @@ export const signupStepOne =
         throw new Error(error);
       }
   };
+
