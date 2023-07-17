@@ -1,9 +1,9 @@
 import { Router } from "express";
 
 // controllers
-import stepOneController from "../controllers/common/signupController/stepOneController";
-import stepTwoController from "../controllers/common/signupController/stepTwoController";
-import loginController from "../controllers/common/LoginController";
+import stepOneController from "../controllers/userAuthenticationControllers/signupController/stepOneController";
+import stepTwoController from "../controllers/userAuthenticationControllers/signupController/stepTwoController";
+import loginController from "../controllers/userAuthenticationControllers/LoginController";
 
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";

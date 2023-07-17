@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { userModel } from "../../../framework/database/models/userModel";
 import { userRepositoryEmpl } from "../../../framework/repository/userRepository";
-import { userLogin } from "../../../app/usecases/common/userLogin";
+import { userLogin } from "../../../app/usecases/userAuthentication/userLogin";
 import { generateAccessToken, generateRefreshToken } from "../../../utils/generateToken";
 import mongoose from "mongoose";
 
@@ -15,8 +15,8 @@ const userRepository = userRepositoryEmpl(userModel);
   const { email, password,role } = req.body;
   const user = await userLogin(userRepository)(email, password);
   if (user) {
-  const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
-   const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
+  const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId);
+   const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId);
    res.cookie(`${role}JWT`, refreshToken, {
     httpOnly: true,
     secure: true,
