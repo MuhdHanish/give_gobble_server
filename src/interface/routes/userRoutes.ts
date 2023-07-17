@@ -19,17 +19,10 @@ import userAuthorization from "../../middleware/userAuthorizationMiddleware";
 const router = Router();
 
 // GET
-router.get("/", userAuthorization, (req, res) => {
-  res.status(200).json({ message: "authorization accepeted" });
-});
 
 // POST  signup
-router.post("/register/stepone", signupValidatorOne, stepOneController);
-router.post(
-  "/register/steptwo/:id",
-  signupValidatorTwo,
-  otpAuthMiddleware,
-  stepTwoController
+router.post("/user/register/stepone", signupValidatorOne, stepOneController);
+router.post("/user/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,stepTwoController
 );
 
 // POST login

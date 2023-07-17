@@ -11,8 +11,8 @@ const stepOneController = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-  const { email,username,role } = req.body;
-  const { message,uId } = await signupStepOne(userRepository)(username,email,role);
+  const { email,username } = req.body;
+  const { message,uId } = await signupStepOne(userRepository)(username,email);
   if (uId) {
     return res.status(200).json({ uId });
   } else {

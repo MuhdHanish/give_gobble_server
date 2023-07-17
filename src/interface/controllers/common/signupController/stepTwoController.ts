@@ -17,14 +17,8 @@ const stepTwoController = async (req: Request, res: Response) => {
    if (!user) {
      return res.status(400).json({ message: "Registration failed" });
    } else {
-     const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
-     const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
-     res.cookie(`${role}JWT`, refreshToken, {
-       httpOnly: true,
-       secure: true,
-       sameSite: 'none',
-       maxAge: 100 * 24 * 60 * 60 * 1000
-     });
+     const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId);
+     const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId);
      return res.status(201).json({ message: "Registration successfull", user, accessToken });
    }
  } catch (error) {

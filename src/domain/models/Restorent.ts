@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-export interface User {
+export interface Restorent {
   _id?: mongoose.Types.ObjectId;
-  username?: string;
+  restorentname?: string;
   email?: string;
   password?: string;
-  location?: string,
+  location?: string;
   role?:string,
   status?: boolean;
   profile?: string;

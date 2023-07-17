@@ -3,10 +3,10 @@ import { userRepository } from "../../../../framework/repository/userRepository"
 
 export const signupStepTwo =
   (userRepository: userRepository) =>
-  async (username: string,email: string,password: string,role: string
+  async (username: string,email: string,password: string,location:string
   ): Promise<User | null> => {
-    const newUser: User = { username, email, password, role };
-    const user = await userRepository.create(newUser);
+    const newUser: User = { username, email, password, location };
+    const user = await userRepository.createUser(newUser);
     if (user) {
      return user
     } else {

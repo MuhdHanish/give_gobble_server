@@ -3,7 +3,7 @@ import { userRepository } from "../../../../framework/repository/userRepository"
 
 export const signupStepOne =
   (userRepository: userRepository) =>
-    async (username: string, email: string, role: string): Promise<{ message: string | null, uId: string | null }> => {
+    async (username: string, email: string): Promise<{ message: string | null, uId: string | null }> => {
       try {
         const user = await userRepository.findByUsernameAndEmail(username,email);
          if (user) {
@@ -14,7 +14,7 @@ export const signupStepOne =
              return { message: "Email already exists", uId: null };
            }
          }
-         const uId = await otpSender(email, `Otp verification of ${role}`);
+         const uId = await otpSender(email, `Otp verification`);
         return { message: null, uId };
       } catch (error:any) {
         throw new Error(error);
