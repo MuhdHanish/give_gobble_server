@@ -20,9 +20,14 @@ const router = Router();
 
 // GET
 
-// POST  signup
+// POST user signup
 router.post("/user/register/stepone", signupValidatorOne, stepOneController);
 router.post("/user/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,stepTwoController
+);
+
+// POST restorent signup
+router.post("/restorent/register/stepone", signupValidatorOne, stepOneController);
+router.post("/restorent/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,stepTwoController
 );
 
 // POST login

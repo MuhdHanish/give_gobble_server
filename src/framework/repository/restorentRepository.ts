@@ -4,20 +4,29 @@ import bcrypt from "bcryptjs";
 
 export type restorentRepository = {
   findByRestorentnameAndEmail: (restorentname: string, email: string) => Promise<Restorent | null>;
-  findByRestorentEmail: (email: string) => Promise<Restorent | null>;
+  findByUsernameOrEmailAndPassword: (restorentusernameOrEmail: string,password:string) => Promise<Restorent | null>;
   findOneRestorent: (restorent: Restorent) => Promise<Restorent | null>;
   createRestorent: (restorent: Restorent) => Promise<Restorent | null>;
 };
 
-export const userRepositoryEmpl = (restorentModel: MongoDDRestorent): restorentRepository => {
+export const restorentRespositoryEmpl = (restorentModel: MongoDDRestorent): restorentRepository => {
   const findByRestorentnameAndEmail = async (restorentname: string, email: string): Promise<Restorent | null> => {
     const restorent = await restorentModel.findOne({ $or: [{ restorentname }, { email }] }, { password: 0 }).exec();
     return restorent ? restorent.toObject() : null;
   };
 
-  const findByRestorentEmail = async (email: string): Promise<Restorent | null> => {
-    const restorent = await restorentModel.findOne({ email }, { password: 0 }).exec();
-    return restorent ? restorent.toObject() : null;
+  const findByUsernameOrEmailAndPassword = async (restorentusernameOrEmail: string, password: string): Promise<Restorent | null> => {
+  const restorent = await restorentModel.findOne({
+    $or: [{ restorentname: restorentusernameOrEmail }, { email: restorentusernameOrEmail }]
+  }).exec();
+  if (restorent) {
+    const passwordMatch = bcrypt.compareSync(password, restorent.password as string);
+    if (passwordMatch) {
+      const { password, ...restorentWithoutPassword } = restorent.toObject();
+      return restorentWithoutPassword;
+    }
+  }
+  return null;
   };
 
   const findOneRestorent = async (restorent: Restorent): Promise<Restorent | null> => {
@@ -43,7 +52,7 @@ export const userRepositoryEmpl = (restorentModel: MongoDDRestorent): restorentR
 
   return {
     findByRestorentnameAndEmail,
-    findByRestorentEmail,
+    findByUsernameOrEmailAndPassword,
     findOneRestorent,
     createRestorent,
   };

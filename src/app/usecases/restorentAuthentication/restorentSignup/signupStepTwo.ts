@@ -6,9 +6,9 @@ export const signupStepTwo =
   async (restorentname: string,email: string,password: string,location:string
   ): Promise<Restorent | null> => {
     const newRestorent: Restorent = { restorentname, email, password, location };
-    const user = await restorentRepository.createRestorent(newRestorent);
-    if (user) {
-     return user
+    const restorent = await restorentRepository.createRestorent(newRestorent);
+    if (restorent) {
+      return restorent;
     } else {
       return null;
     }
