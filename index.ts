@@ -20,7 +20,7 @@ const app = express();
 // cors setting
 app.use(
   cors({
-    origin: ["http://10.4.5.54", "http://10.4.2.60","*"],
+    origin: ["*"],
     methods: ["GET", "POST", "PUT","PATCH", "DELETE"],
   })
 );
