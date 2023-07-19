@@ -20,8 +20,8 @@ const app = express();
 // cors setting
 app.use(
   cors({
-    origin: ["http://localhost:5173", process.env.CORS_ORIGIN_URL as string ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["http://10.4.5.54", "http://10.4.2.60","*"],
+    methods: ["GET", "POST", "PUT","PATCH", "DELETE"],
   })
 );
 
