@@ -11,13 +11,13 @@ import restorentLoginController from "../controllers/restorentAuthenticationCont
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
 
+
 // validator middlewares
 import {
   loginValidator,
   signupValidatorOne,
   signupValidatorTwo,
-} from "../../utils/requestValidator";
-import userAuthorization from "../../middleware/userAuthorizationMiddleware";
+} from "../../middleware/requestValidator";
 
 const router = Router();
 
