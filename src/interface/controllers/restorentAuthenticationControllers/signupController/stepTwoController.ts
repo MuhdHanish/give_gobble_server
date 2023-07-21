@@ -13,7 +13,7 @@ const stepTwoController = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
    const { restorentname, email, password,location } = req.body;
-   const restorent = await signupStepTwo(restorentRepository)(restorentname, email,location, password);
+   const restorent = await signupStepTwo(restorentRepository)(restorentname, email,password, location);
    if (!restorent) {
      return res.status(400).json({ message: "Registration failed" });
    } else {

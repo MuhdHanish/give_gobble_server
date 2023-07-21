@@ -4,7 +4,7 @@ import { restorentRepository } from "../../../framework/repository/restorentRepo
 export const restorentLogin =
   (restorentRepository: restorentRepository) =>
   async (restorentusernameOrEmail: string, password: string): Promise<Restorent | null> => {
-    const currentRestorent = await restorentRepository.findByUsernameOrEmailAndPassword(restorentusernameOrEmail,password);
+    const currentRestorent = await restorentRepository.findByRestorentnameOrEmailAndPassword(restorentusernameOrEmail,password);
     if (currentRestorent && currentRestorent.status) {
       return currentRestorent;
     }
