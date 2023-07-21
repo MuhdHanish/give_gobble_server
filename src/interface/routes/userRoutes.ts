@@ -17,6 +17,8 @@ import {
   loginValidator,
   signupValidatorOne,
   signupValidatorTwo,
+  restorentSignupOne,
+  restorentSignupTwo
 } from "../../middleware/requestValidator";
 
 const router = Router();
@@ -28,8 +30,8 @@ router.post("/user/register/stepone", signupValidatorOne, userStepOneController)
 router.post("/user/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,userStepTwoController);
 
 // POST restorent signup
-router.post("/restorent/register/stepone", signupValidatorOne,restorentStepOneController);
-router.post("/restorent/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,restorentStepTwoController);
+router.post("/restorent/register/stepone", restorentSignupOne,restorentStepOneController);
+router.post("/restorent/register/steptwo/:id",restorentSignupTwo,otpAuthMiddleware,restorentStepTwoController);
 
 // POST login
 router.post("/user/login", loginValidator, userLoginController);
