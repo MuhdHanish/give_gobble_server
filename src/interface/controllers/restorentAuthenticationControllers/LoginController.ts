@@ -12,8 +12,8 @@ const restorentRepository = restorentRespositoryEmpl(restorentModel);
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  const { email, password } = req.body;
-  const restorent = await restorentLogin(restorentRepository)(email, password);
+  const { identifier, password } = req.body;
+  const restorent = await restorentLogin(restorentRepository)(identifier, password);
   if (restorent) {
   const accessToken = await generateAccessToken(restorent?._id as mongoose.Types.ObjectId, restorent?.role as string);
    const refreshToken = await generateRefreshToken(restorent?._id as mongoose.Types.ObjectId, restorent?.role as string);
