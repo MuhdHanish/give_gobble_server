@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-export interface Restorent {
+export interface Restaurant {
   _id?: mongoose.Types.ObjectId;
-  restorentname?: string;
+  restaurantname?: string;
   email?: string;
   password?: string;
   location?: string;

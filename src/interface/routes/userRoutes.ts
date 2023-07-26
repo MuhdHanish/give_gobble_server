@@ -3,10 +3,10 @@ import { Router } from "express";
 // controllers
 import userStepOneController from "../controllers/userAuthenticationControllers/signupController/stepOneController";
 import userStepTwoController from "../controllers/userAuthenticationControllers/signupController/stepTwoController";
-import restorentStepOneController from "../controllers/restorentAuthenticationControllers/signupController/stepOneController";
-import restorentStepTwoController from "../controllers/restorentAuthenticationControllers/signupController/stepTwoController";
+import restaurantStepOneController from "../controllers/restaurantAuthenticationControllers/signupController/stepOneController";
+import restaurantStepTwoController from "../controllers/restaurantAuthenticationControllers/signupController/stepTwoController";
 import userLoginController from "../controllers/userAuthenticationControllers/LoginController";
-import restorentLoginController from "../controllers/restorentAuthenticationControllers/LoginController"
+import restaurantLoginController from "../controllers/restaurantAuthenticationControllers/LoginController"
 
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
@@ -17,8 +17,8 @@ import {
   loginValidator,
   signupValidatorOne,
   signupValidatorTwo,
-  restorentSignupOne,
-  restorentSignupTwo
+  restaurantSignupOne,
+  restaurantSignupTwo
 } from "../../middleware/requestValidator";
 
 const router = Router();
@@ -29,12 +29,12 @@ const router = Router();
 router.post("/user/register/stepone", signupValidatorOne, userStepOneController);
 router.post("/user/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,userStepTwoController);
 
-// POST restorent signup
-router.post("/restorent/register/stepone", restorentSignupOne,restorentStepOneController);
-router.post("/restorent/register/steptwo/:id",restorentSignupTwo,otpAuthMiddleware,restorentStepTwoController);
+// POST restaurant signup
+router.post("/restaurant/register/stepone", restaurantSignupOne,restaurantStepOneController);
+router.post("/restaurant/register/steptwo/:id",restaurantSignupTwo,otpAuthMiddleware,restaurantStepTwoController);
 
 // POST login
 router.post("/user/login", loginValidator, userLoginController);
-router.post("/restorent/login", loginValidator, restorentLoginController);
+router.post("/restaurant/login", loginValidator, restaurantLoginController);
 
 export default router;

@@ -19,14 +19,14 @@ export const signupValidatorTwo = [
   body("password").notEmpty().withMessage("Password is required"),
 ];
 
-export const restorentSignupOne = [
-  body("restorentname").notEmpty().withMessage("Restorent is required"),
+export const restaurantSignupOne = [
+  body("restaurantname").notEmpty().withMessage("restaurant is required"),
   body("email").notEmpty().withMessage("Email is required"),
   body("email").isEmail().withMessage("Invalid email address"),
 ];
 
-export const restorentSignupTwo = [
-  body("restorentname").notEmpty().withMessage("Restorent is required"),
+export const restaurantSignupTwo = [
+  body("restaurantname").notEmpty().withMessage("restaurant is required"),
   body("email").notEmpty().withMessage("Email is required"),
   body("email").isEmail().withMessage("Invalid email address"),
   body("location").notEmpty().withMessage("Location is required"),
