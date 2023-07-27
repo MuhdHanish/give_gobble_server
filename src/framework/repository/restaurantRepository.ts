@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 export type restaurantRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<Restaurant | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string,password:string) => Promise<Restaurant | null>;
-  findOnerestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
 };
 
@@ -29,11 +28,6 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
   return null;
   };
 
-  const findOnerestaurant = async (restaurant: Restaurant): Promise<Restaurant | null> => {
-    const currentrestaurant = await restaurantModel.findOne(restaurant, { password: 0 }).exec();
-    return currentrestaurant ? currentrestaurant.toObject() : null;
-  };
-
   const createrestaurant = async (restaurant: Restaurant): Promise<Restaurant | null> => {
     const hashPass: string = await bcrypt.hash(restaurant.password as string, 12);
     const newrestaurant: Restaurant = {
@@ -53,7 +47,6 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
   return {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
-    findOnerestaurant,
     createrestaurant,
   };
 };

@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 export type userRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<User | null>;
   findByUsernameOrEmailAndPassword:(usernameOrEmail:string,password:string) => Promise<User|null>
-  findByUserEmail: (email: string) => Promise<User | null>;
-  findOneUser: (user: User) => Promise<User | null>;
   createUser: (user: User) => Promise<User | null>;
 };
 
@@ -61,8 +59,6 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
   return {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
-    findByUserEmail,
-    findOneUser,
     createUser,
   };
 };

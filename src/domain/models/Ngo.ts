@@ -4,10 +4,12 @@ export interface Ngo {
   _id?: mongoose.Types.ObjectId;
   username?: string;
   email?: string;
+  status?: boolean;
   password?: string;
   role?: string;
-  isVerified: boolean;
+  isVerified?: boolean;
   ngoType?: string;
   pincode?: string;
-  adderess?: string;
+  address?: string;
+  profile?:string
 }

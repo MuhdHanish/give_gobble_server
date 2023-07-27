@@ -8,10 +8,12 @@ const ngoSchema = new Schema<Ngo>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, required: true, default: "ngo" },
-  isVerified: {type:Boolean,required:true,default:false},
+  isVerified: { type: Boolean, required: true, default: false },
+  status:{type:Boolean,required:true,default:true},
   ngoType: { type: String, required: true },
-  pincode: { type: String, required: true },
-  adderess: {type:String,required:true}
+  pincode: { type: Number, required: true },
+  address: { type: String, required: true },
+  profile: { type: String, required:true, default: "https://cdn-icons-png.flaticon.com/128/3842/3842881.png"}
 });
 
 export const ngoModel: MongDBNgo = mongoose.connection.model<
