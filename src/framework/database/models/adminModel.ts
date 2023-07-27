@@ -3,7 +3,7 @@ import { Admin } from "../../../domain/models/Admin";
 
 export type MongoDBAdmin = Model<Document<any, any, any> & Admin>;
 
-const userSchema = new Schema<Admin>({
+const adminSchema = new Schema<Admin>({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -12,4 +12,4 @@ const userSchema = new Schema<Admin>({
 
 export const adminModel: MongoDBAdmin = mongoose.connection.model<
   Document<any, any, any> & Admin
->("Admin", userSchema);
+>("Admin", adminSchema);
