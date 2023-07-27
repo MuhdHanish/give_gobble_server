@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const loginValidator = [
-  body("identifier").notEmpty().withMessage("Identifier is required (name or email)"),
+  body("identifier").notEmpty().withMessage("Identifier is required (username or email)"),
   body("password").notEmpty().withMessage("Password is required"),
 ];
 
@@ -20,15 +20,16 @@ export const signupValidatorTwo = [
 ];
 
 export const restaurantSignupOne = [
-  body("restaurantname").notEmpty().withMessage("restaurant is required"),
+  body("username").notEmpty().withMessage("Restaurant username is required"),
   body("email").notEmpty().withMessage("Email is required"),
   body("email").isEmail().withMessage("Invalid email address"),
 ];
 
 export const restaurantSignupTwo = [
-  body("restaurantname").notEmpty().withMessage("restaurant is required"),
+  body("username").notEmpty().withMessage("Restaurant username is required"),
   body("email").notEmpty().withMessage("Email is required"),
   body("email").isEmail().withMessage("Invalid email address"),
   body("location").notEmpty().withMessage("Location is required"),
   body("password").notEmpty().withMessage("Password is required"),
 ];
+

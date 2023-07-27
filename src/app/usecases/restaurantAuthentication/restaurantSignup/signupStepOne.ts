@@ -3,11 +3,11 @@ import { restaurantRepository } from "../../../../framework/repository/restauran
 
 export const signupStepOne =
   (restaurantRepository: restaurantRepository) =>
-    async (restaurantname: string, email: string): Promise<{ message: string | null, uId: string | null }> => {
+    async (username: string, email: string): Promise<{ message: string | null, uId: string | null }> => {
       try {
-        const user = await restaurantRepository.findByrestaurantnameAndEmail(restaurantname,email);
+        const user = await restaurantRepository.findByUsernameAndEmail(username,email);
          if (user) {
-           if (user.restaurantname === restaurantname) {
+           if (user.username === username) {
              return { message: "restaurant name already exists", uId: null };
            }
            if (user.email === email) {

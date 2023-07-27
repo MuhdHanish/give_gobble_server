@@ -3,8 +3,8 @@ import { restaurantRepository } from "../../../framework/repository/restaurantRe
 
 export const restaurantLogin =
   (restaurantRepository: restaurantRepository) =>
-  async (restaurantusernameOrEmail: string, password: string): Promise<Restaurant | null> => {
-    const currentrestaurant = await restaurantRepository.findByrestaurantnameOrEmailAndPassword(restaurantusernameOrEmail,password);
+  async (usernameOrEmail: string, password: string): Promise<Restaurant | null> => {
+    const currentrestaurant = await restaurantRepository.findByUsernameOrEmailAndPassword(usernameOrEmail,password);
     if (currentrestaurant && currentrestaurant.status) {
       return currentrestaurant;
     }

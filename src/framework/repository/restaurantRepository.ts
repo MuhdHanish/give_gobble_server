@@ -3,21 +3,21 @@ import { MongoDDRestaurant } from "../database/models/restaurantModel";
 import bcrypt from "bcryptjs";
 
 export type restaurantRepository = {
-  findByrestaurantnameAndEmail: (restaurantname: string, email: string) => Promise<Restaurant | null>;
-  findByrestaurantnameOrEmailAndPassword: (restaurantusernameOrEmail: string,password:string) => Promise<Restaurant | null>;
+  findByUsernameAndEmail: (username: string, email: string) => Promise<Restaurant | null>;
+  findByUsernameOrEmailAndPassword: (usernameOrEmail: string,password:string) => Promise<Restaurant | null>;
   findOnerestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
 };
 
 export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): restaurantRepository => {
-  const findByrestaurantnameAndEmail = async (restaurantname: string, email: string): Promise<Restaurant | null> => {
-    const restaurant = await restaurantModel.findOne({ $or: [{ restaurantname }, { email }] }, { password: 0 }).exec();
+  const findByUsernameAndEmail = async (username: string, email: string): Promise<Restaurant | null> => {
+    const restaurant = await restaurantModel.findOne({ $or: [{ username }, { email }] }, { password: 0 }).exec();
     return restaurant ? restaurant.toObject() : null;
   };
 
-  const findByrestaurantnameOrEmailAndPassword = async (restaurantusernameOrEmail: string, password: string): Promise<Restaurant | null> => {
+  const findByUsernameOrEmailAndPassword = async (usernameOrEmail: string, password: string): Promise<Restaurant | null> => {
   const restaurant = await restaurantModel.findOne({
-    $or: [{ restaurantname: restaurantusernameOrEmail }, { email: restaurantusernameOrEmail }]
+    $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
   }).exec();
   if (restaurant) {
     const passwordMatch = bcrypt.compareSync(password, restaurant.password as string);
@@ -37,7 +37,7 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
   const createrestaurant = async (restaurant: Restaurant): Promise<Restaurant | null> => {
     const hashPass: string = await bcrypt.hash(restaurant.password as string, 12);
     const newrestaurant: Restaurant = {
-      restaurantname: restaurant.restaurantname,
+      username: restaurant.username,
       email: restaurant.email,
       password: hashPass,
       location: restaurant.location,
@@ -51,8 +51,8 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
   };
 
   return {
-    findByrestaurantnameAndEmail,
-    findByrestaurantnameOrEmailAndPassword,
+    findByUsernameAndEmail,
+    findByUsernameOrEmailAndPassword,
     findOnerestaurant,
     createrestaurant,
   };

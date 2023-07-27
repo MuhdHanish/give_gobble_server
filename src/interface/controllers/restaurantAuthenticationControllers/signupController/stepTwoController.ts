@@ -12,8 +12,8 @@ const stepTwoController = async (req: Request, res: Response) => {
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-   const { restaurantname, email, password,location } = req.body;
-   const restaurant = await signupStepTwo(restaurantRepository)(restaurantname, email,password, location);
+   const { username, email, password,location } = req.body;
+   const restaurant = await signupStepTwo(restaurantRepository)(username, email,password, location);
    if (!restaurant) {
      return res.status(400).json({ message: "Registration failed" });
    } else {

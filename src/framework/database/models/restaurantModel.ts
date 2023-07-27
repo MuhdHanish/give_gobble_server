@@ -4,7 +4,7 @@ import { Restaurant } from "../../../domain/models/Restaurant";
 export type MongoDDRestaurant = Model<Document<any, any, any> & Restaurant>;
 
 const restaurantSchema = new Schema<Restaurant>({
-  restaurantname: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   location: { type: String, required: true },
