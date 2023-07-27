@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Restaurant } from "../../domain/models/Restaurant";
 import { MongoDDRestaurant } from "../database/models/restaurantModel";
 import bcrypt from "bcryptjs";
@@ -6,7 +7,7 @@ export type restaurantRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<Restaurant | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
-  findRestaurantById: (restaurantId: string) => Promise<Restaurant | null>;
+  findRestaurantById: (restaurantId: mongoose.Types.ObjectId) => Promise<Restaurant | null>;
 };
 
 export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): restaurantRepository => {
@@ -42,7 +43,7 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
     }
   };
 
-  const findRestaurantById = async (restaurantId: string): Promise<Restaurant | null> => {
+  const findRestaurantById = async (restaurantId: mongoose.Types.ObjectId): Promise<Restaurant | null> => {
     try {
       const restaurant = await restaurantModel
         .findById(restaurantId)

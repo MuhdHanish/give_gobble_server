@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { User } from "../../domain/models/User";
 import { MongoDBUser } from "../database/models/userModel";
 import bcrypt from "bcryptjs";
@@ -6,7 +7,7 @@ export type userRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<User | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<User | null>;
   findByUserEmail: (email: string) => Promise<User | null>;
-  findUserById: (userId: string) => Promise<User | null>;
+  findUserById: (userId: mongoose.Types.ObjectId) => Promise<User | null>;
   createUser: (user: User) => Promise<User | null>;
 };
 
@@ -52,7 +53,7 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
     }
   };
 
-const findUserById = async (userId: string): Promise<User | null> => {
+const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | null> => {
   try {
     const user = await userModel.findById(userId).exec();
     if (user) {

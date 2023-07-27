@@ -15,6 +15,8 @@ import {
   signupValidatorOne,
   signupValidatorTwo,
 } from "../../middleware/requestValidator";
+import { userAuthorization } from "../../middleware";
+import postFoodRequestController from "../controllers/ngo/foodRequestManage/postRequestController";
 
 const router = Router();
 
@@ -24,5 +26,8 @@ router.post("/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,userSte
 
 // POST login
 router.post("/login", loginValidator, userLoginController);
+
+// POST Food Requeset
+router.post("/post/food/request",postFoodRequestController)
 
 export default router;

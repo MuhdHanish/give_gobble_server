@@ -3,7 +3,7 @@ import { FoodRequest } from "../../domain/models/FoodRequest";
 import { MongoDBFoodRequest } from "../database/models/foodRequestModel";
 
 export type foodRequestRepository = {
-  postRequest: (userId: string, title: string, quantity: number, time: string, location: string) => Promise<FoodRequest | null>;
+  postRequest: (userId: string, title: string, quantity: number, time: string, location: string,role:string) => Promise<FoodRequest | null>;
   acceptRequest: (requestId: string) => Promise<FoodRequest | null>;
   completeRequest: (requestId: string) => Promise<FoodRequest | null>;
   getSelectedRequest: (requestId: string) => Promise<FoodRequest|null>;
@@ -14,13 +14,14 @@ export type foodRequestRepository = {
 
 export const foodRequestRepositoryEmpl = (foodRequstModel: MongoDBFoodRequest): foodRequestRepository => {
 
-  const postRequest = async (userId: string, title: string, quantity: number, time: string, location: string): Promise<FoodRequest | null> => {
+  const postRequest = async (userId: string, title: string, quantity: number, time: string, location: string,role:string): Promise<FoodRequest | null> => {
     try {
       const newRequest: FoodRequest = {
         userId: new mongoose.Types.ObjectId(userId),
         title,
         quantity,
         time,
+        userRole:role,
         location
       };
       const createRequest = await foodRequstModel.create(newRequest);

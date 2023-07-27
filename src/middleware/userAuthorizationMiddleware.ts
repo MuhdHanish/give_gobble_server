@@ -13,8 +13,12 @@ const userAuthorization = async (req: CustomRequest, res: Response, next: NextFu
     try {
       let token = req.headers.authorization.split(" ")[1];
       const { id, role }: any = jwt.verify(token, process.env.JWT_ACCESS_SECRET as jwt.Secret);
-      req.userInfo = { id, role };
-      next();
+      if (role === "user" || "restaurant") {
+        req.userInfo = { id, role };
+        next();
+      } else {
+        return res.status(403).json({ message: "Access Forbidden" });
+      }
     } catch (err) {
       return res.status(403).json({ message: "Access Forbidden" });
     }
