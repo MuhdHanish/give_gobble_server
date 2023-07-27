@@ -6,6 +6,7 @@ export type restaurantRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<Restaurant | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
+  findRestaurantById: (restaurantId: string) => Promise<Restaurant | null>;
 };
 
 export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): restaurantRepository => {
@@ -41,6 +42,22 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
     }
   };
 
+  const findRestaurantById = async (restaurantId: string): Promise<Restaurant | null> => {
+    try {
+      const restaurant = await restaurantModel
+        .findById(restaurantId)
+        .exec();
+      if (restaurant) {
+          const { password, ...restaurantWithoutPassword } = restaurant.toObject();
+          return restaurantWithoutPassword;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding restaurant by Id:", error);
+      return null;
+    }
+  } 
+
   const createrestaurant = async (restaurant: Restaurant): Promise<Restaurant | null> => {
     try {
       const hashPass: string = await bcrypt.hash(restaurant.password as string, 12);
@@ -66,5 +83,6 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
     createrestaurant,
+    findRestaurantById,
   };
 };

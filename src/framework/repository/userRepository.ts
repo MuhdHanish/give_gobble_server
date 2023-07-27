@@ -6,7 +6,7 @@ export type userRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<User | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<User | null>;
   findByUserEmail: (email: string) => Promise<User | null>;
-  findOneUser: (user: User) => Promise<User | null>;
+  findUserById: (userId: string) => Promise<User | null>;
   createUser: (user: User) => Promise<User | null>;
 };
 
@@ -52,16 +52,19 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
     }
   };
 
-  const findOneUser = async (user: User): Promise<User | null> => {
-    try {
-      const currentUser = await userModel.findOne(user, { password: 0 }).exec();
-      return currentUser ? currentUser.toObject() : null;
-    } catch (error) {
-      console.error("Error finding user:", error);
-      return null;
+const findUserById = async (userId: string): Promise<User | null> => {
+  try {
+    const user = await userModel.findById(userId).exec();
+    if (user) {
+      const { password, ...userWithoutPassword } = user.toObject();
+      return userWithoutPassword;
     }
-  };
-
+    return null;
+  } catch (error) {
+    console.error("Error finding restaurant by Id:", error);
+    return null;
+  }
+}; 
   const createUser = async (user: User): Promise<User | null> => {
     try {
       const hashPass: string = bcrypt.hashSync(user.password as string, 12);
@@ -87,7 +90,7 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
     findByUserEmail,
-    findOneUser,
+    findUserById,
     createUser,
   };
 };
