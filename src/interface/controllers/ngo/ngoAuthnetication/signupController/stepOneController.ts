@@ -10,7 +10,6 @@ const stepOneController = async (req: Request, res: Response) => {
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
   const { email,username } = req.body;
   const { message, uId } = await signupStepOne(ngoRepository)(username, email);
   if (uId) {

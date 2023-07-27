@@ -3,8 +3,6 @@ import { Router } from "express";
 // controllers
 import restaurantStepOneController from "../controllers/restaurant/restaurantAuthenticationControllers/signupController/stepOneController";
 import restaurantStepTwoController from "../controllers/restaurant/restaurantAuthenticationControllers/signupController/stepTwoController";
-
-
 import restaurantLoginController from "../controllers/restaurant/restaurantAuthenticationControllers/loginController"
 
 // middlewares

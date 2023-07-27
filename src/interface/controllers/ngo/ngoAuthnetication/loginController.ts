@@ -16,14 +16,18 @@ const ngoRepository = ngoRepositroyEmpl(ngoModel);
   const user = await userLogin(ngoRepository)(identifier, password);
    if (user) {
      if (user.isVerified) {
-       const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId,user?.role as string);
-       const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
-       return res.status(201).json({ message: "Login successfull", user, accessToken, refreshToken });
+       if (user.isRejected !== true) {
+        const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId,user?.role as string);
+        const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId, user?.role as string);
+        return res.status(201).json({ message: "Login successfull", user, accessToken, refreshToken }); 
+       } else {
+         return res.status(403).json({ message: " Your account has been reject by admin, remove account and try again" });
+       }
      } else {
-       return res.status(401).json({message: " Your account is currently being verified by our admin team"})
+       return res.status(401).json({ message: " Your account is currently being verified by our admin team" });
     }
   }else{
-   return res.status(401).json({message: "No active account found with the given credentials"})
+     return res.status(401).json({ message: "No active account found with the given credentials" });
   }
  } catch (error) {
   return res.status(500).json({ message: "Internal server error" });

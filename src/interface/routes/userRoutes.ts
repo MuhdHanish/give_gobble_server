@@ -3,7 +3,6 @@ import { Router } from "express";
 // controllers
 import userStepOneController from "../controllers/user/userAuthenticationControllers/signupController/stepOneController";
 import userStepTwoController from "../controllers/user/userAuthenticationControllers/signupController/stepTwoController";
-
 import userLoginController from "../controllers/user/userAuthenticationControllers/loginController";
 
 // middlewares

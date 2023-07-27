@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { userModel } from "../../../../framework/database/models/userModel";
 import { userRepositoryEmpl } from "../../../../framework/repository/userRepository";
-import { userLogin } from "../../../../app/usecases/userAuthentication/userLogin";
+import { userLogin } from "../../../../app/usecases/user/userAuthentication/userLogin";
 import { generateAccessToken, generateRefreshToken } from "../../../../utils/tokenUtils";
 import mongoose from "mongoose";
 

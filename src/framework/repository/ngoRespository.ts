@@ -52,10 +52,10 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
     return null;
   };
 
-  const getNotVerifiedNgos = async ():Promise<Ngo[]|null> => {
-    const notVarifiedNgos = await ngoModel.find({ isVerified: false });
-    if (notVarifiedNgos) {
-      return notVarifiedNgos;
+   const getNotVerifiedNgos = async (): Promise<Ngo[] | null> => {
+    const notVerifiedNgos = await ngoModel.find({ isVerified: false }, { password: 0 }).exec();
+    if (notVerifiedNgos) {
+      return notVerifiedNgos.map(ngo => ngo.toObject());
     }
     return null;
   }
@@ -63,10 +63,12 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   const acceptNgo = async (ngoId: string): Promise<Ngo | null> => {
     const acceptedNgo = await ngoModel.findByIdAndUpdate(
       ngoId,
-      { isVarified:true, isReject: false },
-      { new: true });
+      { isVerified: true, isReject: false },
+      { new: true },
+    ).exec();
     if (acceptedNgo) {
-      return acceptedNgo;
+      const { password, ...ngoWithoutPassword } = acceptedNgo.toObject();
+      return ngoWithoutPassword;
     } else {
       return null;
     }
@@ -75,22 +77,26 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   const rejectNgo = async (ngoId: string): Promise<Ngo | null> => {
     const rejectedNgo = await ngoModel.findByIdAndUpdate(
       ngoId,
-      { isVarified:true, isReject: true },
-      { new: true });
+      { isVerified: true, isRejected: true },
+      { new: true },
+    ).exec();
     if (rejectedNgo) {
-      return rejectedNgo;
+      const { password, ...ngoWithoutPassword } = rejectedNgo.toObject();
+      return ngoWithoutPassword;
     } else {
       return null;
     }
   }
+
   const removeNgoAccount = async (ngoId: string): Promise<Ngo | null> => {
-    const removedNgoAccount = await ngoModel.findByIdAndDelete(ngoId);
+    const removedNgoAccount = await ngoModel.findByIdAndDelete(ngoId, { password: 0 }).exec();
     if (removedNgoAccount) {
-      return removedNgoAccount;
+      return removedNgoAccount.toObject();
     } else {
       return null;
     }
   }
+
 
   return {
     findByUsernameAndEmail,

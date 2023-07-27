@@ -15,7 +15,7 @@ const ngoSchema = new Schema<Ngo>({
   ngoType: { type: String, required: true },
   pincode: { type: Number, required: true },
   address: { type: String, required: true },
-  isRejected: { type: Boolean, required: false},
+  isRejected: { type: Boolean, required: true,default:false},
   profile: { type: String, required:true, default: "https://cdn-icons-png.flaticon.com/128/3842/3842881.png"}
 });
 
