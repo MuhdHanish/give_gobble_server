@@ -1,5 +1,5 @@
-import { Ngo } from "../../../domain/models/Ngo";
-import { ngoRepository } from "../../../framework/repository/ngoRespository";
+import { Ngo } from "../../../../domain/models/Ngo";
+import { ngoRepository } from "../../../../framework/repository/ngoRespository";
 
 export const userLogin =
   (ngoRepository: ngoRepository) =>

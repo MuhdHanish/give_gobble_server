@@ -1,5 +1,5 @@
-import { User } from "../../../domain/models/User";
-import { userRepository } from "../../../framework/repository/userRepository";
+import { User } from "../../../../domain/models/User";
+import { userRepository } from "../../../../framework/repository/userRepository";
 
 export const userLogin =
   (userRepository: userRepository) =>

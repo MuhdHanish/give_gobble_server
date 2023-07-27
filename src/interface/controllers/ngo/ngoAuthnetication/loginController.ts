@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { ngoModel } from "../../../../framework/database/models/ngoModel";
 import { ngoRepositroyEmpl } from "../../../../framework/repository/ngoRespository";
-import { userLogin } from "../../../../app/usecases/ngoAuthentication/userLogin";
+import { userLogin } from "../../../../app/usecases/ngo/ngoAuthentication/userLogin";
 import { generateAccessToken, generateRefreshToken } from "../../../../utils/tokenUtils";
 import mongoose from "mongoose";
 
