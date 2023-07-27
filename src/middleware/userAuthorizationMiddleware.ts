@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "../utils/generateToken";
+import jwt from "../utils/tokenUtils";
 
 interface CustomRequest extends Request {
   userInfo?: { id: string; role: string };

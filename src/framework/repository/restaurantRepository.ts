@@ -4,44 +4,62 @@ import bcrypt from "bcryptjs";
 
 export type restaurantRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<Restaurant | null>;
-  findByUsernameOrEmailAndPassword: (usernameOrEmail: string,password:string) => Promise<Restaurant | null>;
+  findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
 };
 
 export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): restaurantRepository => {
   const findByUsernameAndEmail = async (username: string, email: string): Promise<Restaurant | null> => {
-    const restaurant = await restaurantModel.findOne({ $or: [{ username }, { email }] }, { password: 0 }).exec();
-    return restaurant ? restaurant.toObject() : null;
+    try {
+      const restaurant = await restaurantModel.findOne({ $or: [{ username }, { email }] }, { password: 0 }).exec();
+      return restaurant ? restaurant.toObject() : null;
+    } catch (error) {
+      console.error("Error finding restaurant by username and email:", error);
+      return null;
+    }
   };
 
-  const findByUsernameOrEmailAndPassword = async (usernameOrEmail: string, password: string): Promise<Restaurant | null> => {
-  const restaurant = await restaurantModel.findOne({
-    $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }]
-  }).exec();
-  if (restaurant) {
-    const passwordMatch = bcrypt.compareSync(password, restaurant.password as string);
-    if (passwordMatch) {
-      const { password, ...restaurantWithoutPassword } = restaurant.toObject();
-      return restaurantWithoutPassword;
+  const findByUsernameOrEmailAndPassword = async (
+    usernameOrEmail: string,
+    password: string
+  ): Promise<Restaurant | null> => {
+    try {
+      const restaurant = await restaurantModel
+        .findOne({ $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] })
+        .exec();
+      if (restaurant) {
+        const passwordMatch = bcrypt.compareSync(password, restaurant.password as string);
+        if (passwordMatch) {
+          const { password, ...restaurantWithoutPassword } = restaurant.toObject();
+          return restaurantWithoutPassword;
+        }
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding restaurant by username or email and password:", error);
+      return null;
     }
-  }
-  return null;
   };
 
   const createrestaurant = async (restaurant: Restaurant): Promise<Restaurant | null> => {
-    const hashPass: string = await bcrypt.hash(restaurant.password as string, 12);
-    const newrestaurant: Restaurant = {
-      username: restaurant.username,
-      email: restaurant.email,
-      password: hashPass,
-      location: restaurant.location,
-    };
-    const createdrestaurant = await restaurantModel.create(newrestaurant);
-    if (createdrestaurant) {
-      const { password, ...restoredrestaurant } = createdrestaurant.toObject();
-      return restoredrestaurant;
+    try {
+      const hashPass: string = await bcrypt.hash(restaurant.password as string, 12);
+      const newrestaurant: Restaurant = {
+        username: restaurant.username,
+        email: restaurant.email,
+        password: hashPass,
+        location: restaurant.location,
+      };
+      const createdrestaurant = await restaurantModel.create(newrestaurant);
+      if (createdrestaurant) {
+        const { password, ...restoredrestaurant } = createdrestaurant.toObject();
+        return restoredrestaurant;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error creating restaurant:", error);
+      return null;
     }
-    return null;
   };
 
   return {

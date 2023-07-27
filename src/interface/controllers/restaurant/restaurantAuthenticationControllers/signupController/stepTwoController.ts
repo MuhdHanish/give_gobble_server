@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { restaurantModel } from "../../../../framework/database/models/restaurantModel";
+import { restaurantModel } from "../../../../../framework/database/models/restaurantModel";
 import { validationResult } from "express-validator";
-import { restaurantRespositoryEmpl } from "../../../../framework/repository/restaurantRepository";
-import { signupStepTwo } from "../../../../app/usecases/restaurantAuthentication/restaurantSignup/signupStepTwo";
-import { generateAccessToken, generateRefreshToken } from "../../../../utils/generateToken";
+import { restaurantRespositoryEmpl } from "../../../../../framework/repository/restaurantRepository";
+import { signupStepTwo } from "../../../../../app/usecases/restaurantAuthentication/restaurantSignup/signupStepTwo";
+import { generateAccessToken, generateRefreshToken } from "../../../../../utils/tokenUtils";
 
 const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);
 

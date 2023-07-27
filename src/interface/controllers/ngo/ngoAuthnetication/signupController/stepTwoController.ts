@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { ngoModel } from "../../../../framework/database/models/ngoModel";
+import { ngoModel } from "../../../../../framework/database/models/ngoModel";
 import { validationResult } from "express-validator";
-import { ngoRepositroyEmpl } from "../../../../framework/repository/ngoRespository";
-import { signupStepTwo } from "../../../../app/usecases/ngoAuthentication/ngoSignup/signupStepTwo";
+import { ngoRepositroyEmpl } from "../../../../../framework/repository/ngoRespository";
+import { signupStepTwo } from "../../../../../app/usecases/ngoAuthentication/userSignup/signupStepTwo";
 
 const ngoRepository = ngoRepositroyEmpl(ngoModel);
 

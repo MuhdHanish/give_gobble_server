@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { restaurantModel } from "../../../framework/database/models/restaurantModel";
-import { restaurantRespositoryEmpl } from "../../../framework/repository/restaurantRepository";
-import { restaurantLogin } from "../../../app/usecases/restaurantAuthentication/restorentLogin";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/generateToken";
+import { restaurantModel } from "../../../../framework/database/models/restaurantModel";
+import { restaurantRespositoryEmpl } from "../../../../framework/repository/restaurantRepository";
+import { restaurantLogin } from "../../../../app/usecases/restaurantAuthentication/restorentLogin";
+import { generateAccessToken, generateRefreshToken } from "../../../../utils/tokenUtils";
 import mongoose from "mongoose";
 
 const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);

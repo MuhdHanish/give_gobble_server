@@ -12,7 +12,7 @@ config();
 import connnectDatabase from "./src/framework/database/config/dbConfig";
 
 // import the route file
-import { adminRoutes, userRoutes } from "./src/interface/routes";
+import { adminRoutes, userRoutes,ngoRoutes,restaurantRotues } from "./src/interface/routes";
 
 // creat express application
 const app = express();
@@ -31,7 +31,9 @@ app.use(morgan("dev"));
 
 // user route
 app.use('/', userRoutes);
+app.use('/ngo', ngoRoutes);
 app.use('/admin', adminRoutes);
+app.use('/restaurant', restaurantRotues);
 
 // database connecting & app listen
 const port = process.env.PORT || 8000;

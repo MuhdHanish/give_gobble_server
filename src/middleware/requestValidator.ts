@@ -19,17 +19,21 @@ export const signupValidatorTwo = [
   body("password").notEmpty().withMessage("Password is required"),
 ];
 
-export const restaurantSignupOne = [
-  body("username").notEmpty().withMessage("Restaurant username is required"),
-  body("email").notEmpty().withMessage("Email is required"),
-  body("email").isEmail().withMessage("Invalid email address"),
-];
-
 export const restaurantSignupTwo = [
   body("username").notEmpty().withMessage("Restaurant username is required"),
   body("email").notEmpty().withMessage("Email is required"),
   body("email").isEmail().withMessage("Invalid email address"),
   body("location").notEmpty().withMessage("Location is required"),
   body("password").notEmpty().withMessage("Password is required"),
+];
+
+export const ngoSignupTow = [
+  body("username").notEmpty().withMessage("Restaurant username is required"),
+  body("email").notEmpty().withMessage("Email is required"),
+  body("email").isEmail().withMessage("Invalid email address"),
+  body("password").notEmpty().withMessage("Password is required"),
+  body("ngoType").notEmpty().withMessage("Ngo Type is required"),
+  body("address").notEmpty().withMessage("Descripton is required"),
+  body("pincode").notEmpty().withMessage("Pincode is required")
 ];
 

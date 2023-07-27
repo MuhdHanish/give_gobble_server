@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { userModel } from "../../../framework/database/models/userModel";
-import { userRepositoryEmpl } from "../../../framework/repository/userRepository";
-import { userLogin } from "../../../app/usecases/userAuthentication/userLogin";
-import { generateAccessToken, generateRefreshToken } from "../../../utils/generateToken";
+import { generateAccessToken, generateRefreshToken } from "../../../../utils/tokenUtils";
 import mongoose from "mongoose";
+import { adminRepositoryEmpl } from "../../../../framework/repository/adminRepository";
+import { adminModel } from "../../../../framework/database/models/adminModel";
+import { adminLogin } from "../../../../app/usecases/adminAuthentication/adminLogin";
 
-const userRepository = userRepositoryEmpl(userModel);
+const adminRepository = adminRepositoryEmpl(adminModel);
 
  const loginController = async (req: Request, res: Response) => {
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
   const { identifier, password } = req.body;
-  const user = await userLogin(userRepository)(identifier, password);
+  const user = await adminLogin(adminRepository)(identifier, password);
   if (user) {
   const accessToken = await generateAccessToken(user?._id as mongoose.Types.ObjectId,user?.role as string);
   const refreshToken = await generateRefreshToken(user?._id as mongoose.Types.ObjectId, user?.role as string);

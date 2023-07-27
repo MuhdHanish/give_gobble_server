@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { userModel } from "../../../../framework/database/models/userModel";
+import { userModel } from "../../../../../framework/database/models/userModel";
 import { validationResult } from "express-validator";
-import { userRepositoryEmpl } from "../../../../framework/repository/userRepository";
-import { signupStepTwo } from "../../../../app/usecases/userAuthentication/userSignup/signupStepTwo";
-import { generateAccessToken, generateRefreshToken } from "../../../../utils/generateToken";
+import { userRepositoryEmpl } from "../../../../../framework/repository/userRepository";
+import { signupStepTwo } from "../../../../../app/usecases/userAuthentication/userSignup/signupStepTwo";
+import { generateAccessToken, generateRefreshToken } from "../../../../../utils/tokenUtils";
 
 const userRepository = userRepositoryEmpl(userModel);
 

@@ -11,5 +11,6 @@ export interface Ngo {
   ngoType?: string;
   pincode?: string;
   address?: string;
-  profile?:string
+  profile?: string;
+  isRejected?: boolean;
 }
