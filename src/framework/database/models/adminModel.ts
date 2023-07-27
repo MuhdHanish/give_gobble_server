@@ -12,4 +12,4 @@ const userSchema = new Schema<Admin>({
 
 export const adminModel: MongoDBAdmin = mongoose.connection.model<
   Document<any, any, any> & Admin
->("User", userSchema);
+>("Admin", userSchema);
