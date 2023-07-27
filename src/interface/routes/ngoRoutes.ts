@@ -2,8 +2,8 @@ import { Router } from "express";
 
 // controllers
 import loginController from "../controllers/ngo/ngoAuthnetication/loginController";
-import { signupStepOne } from "../../app/usecases/ngoAuthentication/userSignup/signupStepOne";
-import { signupStepTwo } from "../../app/usecases/ngoAuthentication/userSignup/signupStepTwo";
+import { signupStepOne } from "../../app/usecases/ngo/ngoAuthentication/userSignup/signupStepOne";
+import { signupStepTwo } from "../../app/usecases/ngo/ngoAuthentication/userSignup/signupStepTwo";
 
 
 // middlewares

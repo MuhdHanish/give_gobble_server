@@ -1,5 +1,5 @@
-import { Admin } from "../../../domain/models/Admin";
-import { adminRepository } from "../../../framework/repository/adminRepository";
+import { Admin } from "../../../../domain/models/Admin";
+import { adminRepository } from "../../../../framework/repository/adminRepository";
 
 export const adminLogin =
   (adminRepository: adminRepository) =>

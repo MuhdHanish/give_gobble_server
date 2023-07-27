@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { signupStepOne } from "../../../../../app/usecases/restaurantAuthentication/restaurantSignup/signupStepOne";
+import { signupStepOne } from "../../../../../app/usecases/restaurant/restaurantAuthentication/restaurantSignup/signupStepOne";
 import { restaurantModel } from "../../../../../framework/database/models/restaurantModel";
 import { restaurantRepository, restaurantRespositoryEmpl } from "../../../../../framework/repository/restaurantRepository";
 

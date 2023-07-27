@@ -4,7 +4,7 @@ import { generateAccessToken, generateRefreshToken } from "../../../../utils/tok
 import mongoose from "mongoose";
 import { adminRepositoryEmpl } from "../../../../framework/repository/adminRepository";
 import { adminModel } from "../../../../framework/database/models/adminModel";
-import { adminLogin } from "../../../../app/usecases/adminAuthentication/adminLogin";
+import { adminLogin } from "../../../../app/usecases/admin/adminAuthentication/adminLogin";
 
 const adminRepository = adminRepositoryEmpl(adminModel);
 

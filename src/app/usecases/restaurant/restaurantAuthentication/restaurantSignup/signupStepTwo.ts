@@ -1,5 +1,5 @@
-import { Restaurant } from "../../../../domain/models/Restaurant";
-import { restaurantRepository } from "../../../../framework/repository/restaurantRepository";
+import { Restaurant } from "../../../../../domain/models/Restaurant";
+import { restaurantRepository } from "../../../../../framework/repository/restaurantRepository";
 
 export const signupStepTwo =
   (restaurantRepository: restaurantRepository) =>

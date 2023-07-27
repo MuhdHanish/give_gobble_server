@@ -1,5 +1,5 @@
-import { otpSender } from "../../../../utils/otpSendAndStore";
-import { restaurantRepository } from "../../../../framework/repository/restaurantRepository";
+import { otpSender } from "../../../../../utils/otpSendAndStore";
+import { restaurantRepository } from "../../../../../framework/repository/restaurantRepository";
 
 export const signupStepOne =
   (restaurantRepository: restaurantRepository) =>

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { ngoModel } from "../../../../../framework/database/models/ngoModel";
 import { validationResult } from "express-validator";
 import { ngoRepositroyEmpl } from "../../../../../framework/repository/ngoRespository";
-import { signupStepTwo } from "../../../../../app/usecases/ngoAuthentication/userSignup/signupStepTwo";
+import { signupStepTwo } from "../../../../../app/usecases/ngo/ngoAuthentication/userSignup/signupStepTwo";
 
 const ngoRepository = ngoRepositroyEmpl(ngoModel);
 

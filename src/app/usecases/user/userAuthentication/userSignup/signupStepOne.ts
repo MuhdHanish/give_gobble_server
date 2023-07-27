@@ -1,11 +1,11 @@
-import { otpSender } from "../../../../utils/otpSendAndStore";
-import { ngoRepository } from "../../../../framework/repository/ngoRespository";
+import { otpSender } from "../../../../../utils/otpSendAndStore";
+import { userRepository } from "../../../../../framework/repository/userRepository";
 
 export const signupStepOne =
-  (ngoRepository: ngoRepository) =>
+  (userRepository: userRepository) =>
     async (username: string, email: string): Promise<{ message: string | null, uId: string | null }> => {
       try {
-        const user = await ngoRepository.findByUsernameAndEmail(username,email);
+        const user = await userRepository.findByUsernameAndEmail(username,email);
          if (user) {
            if (user.username === username) {
              return { message: "Username already exists", uId: null };
