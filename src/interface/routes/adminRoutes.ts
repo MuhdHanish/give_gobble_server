@@ -17,10 +17,10 @@ const router = Router();
 router.post("/login", loginValidator, adminLoginController);
 
 // GET 
-router.get("/get/ngo/requests",  getRequestedNgosController);
+router.get("/get/ngo/requests",adminAuthorization,getRequestedNgosController);
 
 // PATCH 
-router.patch("/accept/ngo/:id",  acceptNgoController);
-router.patch("/reject/ngo/:id",  rejectNgoController);
+router.patch("/accept/ngo/:id",adminAuthorization,acceptNgoController);
+router.patch("/reject/ngo/:id",adminAuthorization,rejectNgoController);
 
 export default router;

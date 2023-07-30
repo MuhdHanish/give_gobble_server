@@ -28,6 +28,6 @@ router.post("/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,userSte
 router.post("/login", loginValidator, userLoginController);
 
 // POST Food Requeset
-router.post("/post/food/request",postFoodRequestController)
+router.post("/post/food/request",userAuthorization,postFoodRequestController)
 
 export default router;

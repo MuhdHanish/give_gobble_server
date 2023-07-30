@@ -27,17 +27,17 @@ router.post("/register/steptwo/:id",ngoSignupTow,otpAuthMiddleware,stepTwoContro
 router.post("/login", loginValidator, loginController);
 
 // GET get requests
-router.get("/get/pending/requests",  getPendingRequestsContorller);
-router.get("/get/accepted/requests",  getAcceptedRequestsController);
-router.get("/get/completed/requests",  getCompletedRequestsController);
+router.get("/get/pending/requests",ngoAuthorization,getPendingRequestsContorller);
+router.get("/get/accepted/requests", ngoAuthorization, getAcceptedRequestsController);
+router.get("/get/completed/requests", ngoAuthorization,  getCompletedRequestsController);
 
-router.get("/get/seleted/request/:id",  getSelectedRequest);
+router.get("/get/seleted/request/:id", ngoAuthorization,  getSelectedRequest);
 
 // PATCH account
-router.patch("/remove/account/:id", removeAccountController);
+router.patch("/remove/account/:id",ngoAuthorization, removeAccountController);
 
 // PATCH requests
-router.patch("/accept/request/:id", acceptRequestController)
-router.patch("/complete/request/:id", completeRequestController);
+router.patch("/accept/request/:id",ngoAuthorization, acceptRequestController)
+router.patch("/complete/request/:id",ngoAuthorization, completeRequestController);
 
 export default router;
