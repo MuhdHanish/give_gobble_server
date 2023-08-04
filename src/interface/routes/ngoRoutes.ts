@@ -13,6 +13,7 @@ import forgotNgoPasswordController from "../controllers/ngo/ngoAuthnetication/fo
 
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
+import otpPasswordVerifyMiddleware from "../../middleware/otpPasswordVerifyMiddelware";
 
 
 // validator middlewares
@@ -44,6 +45,9 @@ router.patch("/complete/request/:id", ngoAuthorization, completeRequestControlle
 
 // POST Forgot password request
 router.post("/forgot/password", forgotPasswordValidator, forgotNgoPasswordController);
+
+// POST Verify password request
+router.post("/verify/password/request/:id", otpPasswordVerifyMiddleware);
 
 // PATCH Reset Password
 router.patch("/reset/password", loginValidator, resetNgoPasswordController);

@@ -6,9 +6,12 @@ import userStepTwoController from "../controllers/user/userAuthenticationControl
 import resetUserPasswordController from "../controllers/user/userAuthenticationControllers/resetUserPasswordController";
 import userLoginController from "../controllers/user/userAuthenticationControllers/loginController";
 import postFoodRequestController from "../controllers/foodRequestManage/postRequestController";
+import forgotUserPasswordController from "../controllers/user/userAuthenticationControllers/forgotUserPasswordController";
 
 // middlewares
+import { userAuthorization } from "../../middleware";
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
+import otpPasswordVerifyMiddleware from "../../middleware/otpPasswordVerifyMiddelware";
 
 
 // validator middlewares
@@ -18,8 +21,6 @@ import {
   signupValidatorOne,
   signupValidatorTwo,
 } from "../../middleware/requestValidator";
-import { userAuthorization } from "../../middleware";
-import forgotUserPasswordController from "../controllers/user/userAuthenticationControllers/forgotUserPasswordController";
 
 const router = Router();
 
@@ -35,6 +36,9 @@ router.post("/post/food/request", userAuthorization, postFoodRequestController);
 
 // POST Forgot password request
 router.post("/forgot/password", forgotPasswordValidator, forgotUserPasswordController);
+
+// POST Verify password request
+router.post("/verify/password/request/:id", otpPasswordVerifyMiddleware);
 
 // PATCH Reset Password
 router.patch("/reset/password", loginValidator, resetUserPasswordController);

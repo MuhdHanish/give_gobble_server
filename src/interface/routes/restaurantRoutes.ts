@@ -9,8 +9,9 @@ import postFoodRequestController from "../controllers/foodRequestManage/postRequ
 import forgotRestaurantPasswordController from "../controllers/restaurant/restaurantAuthenticationControllers/forgotRestaurantPasswordController";
 
 // middlewares
-import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
 import { userAuthorization } from "../../middleware";
+import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
+import otpPasswordVerifyMiddleware from "../../middleware/otpPasswordVerifyMiddelware";
 
 
 // validator middlewares
@@ -37,6 +38,9 @@ router.post("/post/food/request", userAuthorization, postFoodRequestController)
 
 // POST Forgot password request
 router.post("/forgot/password", forgotPasswordValidator, forgotRestaurantPasswordController);
+
+// POST Verify password request
+router.post("/verify/password/request/:id", otpPasswordVerifyMiddleware);
 
 // PATCH Reset Password
 router.patch("/reset/password", loginValidator, resetRestaurantPasswordController);
