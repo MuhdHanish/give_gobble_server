@@ -6,6 +6,7 @@ import restaurantStepTwoController from "../controllers/restaurant/restaurantAut
 import resetRestaurantPasswordController from "../controllers/restaurant/restaurantAuthenticationControllers/restRestaurantPassword";
 import restaurantLoginController from "../controllers/restaurant/restaurantAuthenticationControllers/loginController"
 import postFoodRequestController from "../controllers/foodRequestManage/postRequestController";
+import forgotRestaurantPasswordController from "../controllers/restaurant/restaurantAuthenticationControllers/forgotRestaurantPasswordController";
 
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
@@ -16,7 +17,8 @@ import { userAuthorization } from "../../middleware";
 import {
   loginValidator,
   signupValidatorTwo,
-  restaurantSignupTwo
+  restaurantSignupTwo,
+  forgotPasswordValidator
 } from "../../middleware/requestValidator";
 
 const router = Router();
@@ -33,7 +35,10 @@ router.post("/login", loginValidator, restaurantLoginController);
 // POST Food Requeset
 router.post("/post/food/request", userAuthorization, postFoodRequestController)
 
+// POST Forgot password request
+router.post("/forgot/password", forgotPasswordValidator, forgotRestaurantPasswordController);
+
 // PATCH Reset Password
-router.patch("/reset/password", userAuthorization, loginValidator, resetRestaurantPasswordController);
+router.patch("/reset/password", loginValidator, resetRestaurantPasswordController);
 
 export default router;

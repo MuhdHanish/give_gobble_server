@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 export type userRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<User | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<User | null>;
+  findByUsernameOrEmail: (usernameOrEmail: string) => Promise<User | null>;
   findByUserEmail: (email: string) => Promise<User | null>;
   findUserById: (userId: mongoose.Types.ObjectId) => Promise<User | null>;
   createUser: (user: User) => Promise<User | null>;
@@ -36,6 +37,24 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
           const { password, ...userWithoutPassword } = user.toObject();
           return userWithoutPassword;
         }
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding user by username or email and password:", error);
+      return null;
+    }
+  };
+
+  const findByUsernameOrEmail = async (usernameOrEmail: string): Promise<User | null> => {
+    try {
+      const user = await userModel
+        .findOne({
+          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        })
+        .exec();
+      if (user) {
+          const { password, ...userWithoutPassword } = user.toObject();
+          return userWithoutPassword;
       }
       return null;
     } catch (error) {
@@ -109,6 +128,7 @@ const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | nul
 
   return {
     findByUsernameOrEmailAndPassword,
+    findByUsernameOrEmail,
     findByUsernameAndEmail,
     resetUserPassword,
     findByUserEmail,

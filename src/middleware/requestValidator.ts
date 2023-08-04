@@ -3,6 +3,9 @@ import { body } from "express-validator";
 export const loginValidator = [
   body("identifier").notEmpty().withMessage("Identifier is required (username or email)"),
   body("password").notEmpty().withMessage("Password is required"),
+]
+export const forgotPasswordValidator = [
+  body("identifier").notEmpty().withMessage("Identifier is required (username or email)"),
 ];
 
 export const signupValidatorOne = [

@@ -20,7 +20,7 @@ const userRepository = userRepositoryEmpl(userModel);
   
   return res.status(201).json({ message: "Login successfull", user, accessToken, refreshToken });
   }else{
-   return res.status(401).json({message: "No active account found with the given credentials"})
+    return res.status(401).json({ message: "No active account found with the given credentials" });
   }
  } catch (error) {
   return res.status(500).json({ message: "Internal server error" });

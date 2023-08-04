@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 export type ngoRepository = {
   findByUsernameAndEmail: (username: string, email: string) => Promise<Ngo | null>;
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<Ngo | null>
+  findByUsernameOrEmail: (usernameOrEmail: string) => Promise<Ngo | null>
   getNotVerifiedNgos:() => Promise<Ngo[]|null>
   createUser: (user: Ngo) => Promise<Ngo | null>;
   acceptNgo: (ngoId: string) => Promise<Ngo | null>;
@@ -34,6 +35,25 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   }
   return null;
   };
+
+   const findByUsernameOrEmail = async (usernameOrEmail: string): Promise<Ngo | null> => {
+    try {
+      const ngo = await ngoModel
+        .findOne({
+          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        })
+        .exec();
+      if (ngo) {
+          const { password, ...ngoWithoutPassword } = ngo.toObject();
+          return ngoWithoutPassword;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding user by username or email and password:", error);
+      return null;
+    }
+  };
+
 
 
   const createUser = async (user: Ngo): Promise<Ngo | null> => {
@@ -122,6 +142,7 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   return {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
+    findByUsernameOrEmail,
     getNotVerifiedNgos,
     createUser,
     acceptNgo,

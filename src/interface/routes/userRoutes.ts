@@ -13,11 +13,13 @@ import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
 
 // validator middlewares
 import {
+  forgotPasswordValidator,
   loginValidator,
   signupValidatorOne,
   signupValidatorTwo,
 } from "../../middleware/requestValidator";
 import { userAuthorization } from "../../middleware";
+import forgotUserPasswordController from "../controllers/user/userAuthenticationControllers/forgotUserPasswordController";
 
 const router = Router();
 
@@ -31,7 +33,10 @@ router.post("/login", loginValidator, userLoginController);
 // POST Food Requeset
 router.post("/post/food/request", userAuthorization, postFoodRequestController);
 
+// POST Forgot password request
+router.post("/forgot/password", forgotPasswordValidator, forgotUserPasswordController);
+
 // PATCH Reset Password
-router.patch("/reset/password", userAuthorization, loginValidator, resetUserPasswordController);
+router.patch("/reset/password", loginValidator, resetUserPasswordController);
 
 export default router;

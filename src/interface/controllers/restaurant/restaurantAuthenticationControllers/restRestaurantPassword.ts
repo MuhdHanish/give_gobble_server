@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { restaurantModel } from "../../../../framework/database/models/restaurantModel";
 import { restaurantRespositoryEmpl } from "../../../../framework/repository/restaurantRepository";
-import { resetRestaurantPassword } from "../../../../app/usecases/restaurant/resetRestaurantPassword";
+import { resetRestaurantPassword } from "../../../../app/usecases/restaurant/restaurantAuthentication/resetRestaurantPassword";
 
 const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);
 

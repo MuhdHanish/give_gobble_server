@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { userModel } from "../../../../framework/database/models/userModel";
 import { userRepositoryEmpl } from "../../../../framework/repository/userRepository";
-import { resetUserPassword } from "../../../../app/usecases/user/restUserPassword";
+import { resetUserPassword } from "../../../../app/usecases/user/userAuthentication/restUserPassword";
 
 const userRepository = userRepositoryEmpl(userModel);
 

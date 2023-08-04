@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { ngoModel } from "../../../../framework/database/models/ngoModel";
 import { ngoRepositroyEmpl } from "../../../../framework/repository/ngoRespository";
-import { resetNgoPassword } from "../../../../app/usecases/ngo/resetNgoPassword";
+import { resetNgoPassword } from "../../../../app/usecases/ngo/ngoAuthentication/resetNgoPassword";
 
 const ngoRespository = ngoRepositroyEmpl(ngoModel);
 
