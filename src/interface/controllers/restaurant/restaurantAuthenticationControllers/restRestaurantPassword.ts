@@ -13,7 +13,7 @@ const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);
   const { identifier, password } = req.body;
   const restaurant = await resetRestaurantPassword(restaurantRepository)(identifier,password);
   if (restaurant) {
-  return res.status(201).json({ message: "Password reseted sucessfully", restaurant });
+  return res.status(201).json({ message: "Password reseted sucessfully"});
   }else{
    return res.status(401).json({message: "No active account found with the given credentials"})
   }

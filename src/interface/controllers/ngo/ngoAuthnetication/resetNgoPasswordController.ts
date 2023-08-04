@@ -13,7 +13,7 @@ const ngoRespository = ngoRepositroyEmpl(ngoModel);
   const { identifier, password } = req.body;
   const ngo = await resetNgoPassword(ngoRespository)(identifier,password);
   if (ngo) {
-  return res.status(201).json({ message: "Password reseted sucessfully", ngo });
+  return res.status(201).json({ message: "Password reseted sucessfully" });
   }else{
    return res.status(401).json({message: "No active account found with the given credentials"})
   }

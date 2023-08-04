@@ -13,7 +13,7 @@ const userRepository = userRepositoryEmpl(userModel);
   const { identifier, password } = req.body;
   const user = await resetUserPassword(userRepository)(identifier,password);
   if (user) {
-  return res.status(201).json({ message: "Password reseted sucessfully", user });
+  return res.status(201).json({ message: "Password reseted sucessfully" });
   }else{
    return res.status(401).json({message: "No active account found with the given credentials"})
   }
