@@ -9,6 +9,7 @@ export type userRepository = {
   findByUserEmail: (email: string) => Promise<User | null>;
   findUserById: (userId: mongoose.Types.ObjectId) => Promise<User | null>;
   createUser: (user: User) => Promise<User | null>;
+  resetUserPassword: (usernameOrEmail: string, newPassword: string) => Promise<User | null>;
 };
 
 export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
@@ -87,9 +88,29 @@ const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | nul
     }
   };
 
+  const resetUserPassword = async (usernameOrEmail: string, newPassword: string) => {
+    try {
+       const hashPass: string = bcrypt.hashSync(newPassword, 12);
+      const user = await userModel
+        .findOneAndUpdate({
+          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        },{$set:{password:hashPass}},{new:true})
+        .exec();
+      if (user) {
+        const { password, ...restoredUser } = user.toObject();
+        return restoredUser;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding user by username or email and password:", error);
+      return null;
+    }
+  }
+
   return {
-    findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
+    findByUsernameAndEmail,
+    resetUserPassword,
     findByUserEmail,
     findUserById,
     createUser,

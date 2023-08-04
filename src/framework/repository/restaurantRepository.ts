@@ -8,6 +8,7 @@ export type restaurantRepository = {
   findByUsernameOrEmailAndPassword: (usernameOrEmail: string, password: string) => Promise<Restaurant | null>;
   createrestaurant: (restaurant: Restaurant) => Promise<Restaurant | null>;
   findRestaurantById: (restaurantId: mongoose.Types.ObjectId) => Promise<Restaurant | null>;
+  resetRestaurantPassword: (usernameOrEmail: string, newPassword: string) => Promise<Restaurant | null>;
 };
 
 export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): restaurantRepository => {
@@ -80,10 +81,30 @@ export const restaurantRespositoryEmpl = (restaurantModel: MongoDDRestaurant): r
     }
   };
 
+  const resetRestaurantPassword = async (usernameOrEmail: string, newPassword: string) => {
+    try {
+       const hashPass: string = bcrypt.hashSync(newPassword, 12);
+      const user = await restaurantModel
+        .findOneAndUpdate({
+          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        },{$set:{password:hashPass}},{new:true})
+        .exec();
+      if (user) {
+        const { password, ...restoredUser } = user.toObject();
+        return restoredUser;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding user by username or email and password:", error);
+      return null;
+    }
+  }
+
   return {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
     createrestaurant,
     findRestaurantById,
+    resetRestaurantPassword,
   };
 };

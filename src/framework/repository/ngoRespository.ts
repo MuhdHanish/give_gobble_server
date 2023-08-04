@@ -10,6 +10,8 @@ export type ngoRepository = {
   acceptNgo: (ngoId: string) => Promise<Ngo | null>;
   rejectNgo: (ngoId: string) => Promise<Ngo | null>;
   removeNgoAccount: (ngoId: string) => Promise<Ngo | null>;
+  resetNgoPassword: (usernameOrEmail: string, newPassword: string) => Promise<Ngo | null>;
+
 };
 
 export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
@@ -97,6 +99,25 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
     }
   }
 
+  const resetNgoPassword = async (usernameOrEmail: string, newPassword: string) => {
+    try {
+       const hashPass: string = bcrypt.hashSync(newPassword, 12);
+      const user = await ngoModel
+        .findOneAndUpdate({
+          $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+        },{$set:{password:hashPass}},{new:true})
+        .exec();
+      if (user) {
+        const { password, ...restoredUser } = user.toObject();
+        return restoredUser;
+      }
+      return null;
+    } catch (error) {
+      console.error("Error finding user by username or email and password:", error);
+      return null;
+    }
+  }
+
 
   return {
     findByUsernameAndEmail,
@@ -106,5 +127,6 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
     acceptNgo,
     rejectNgo,
     removeNgoAccount,
+    resetNgoPassword,
   };
 };

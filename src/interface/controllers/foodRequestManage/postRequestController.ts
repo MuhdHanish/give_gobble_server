@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { foodRequestModel } from "../../../../framework/database/models/foodRequestModel";
-import { foodRequestRepositoryEmpl } from "../../../../framework/repository/foodRequestRepository";
-import { postFoodRequest } from "../../../../app/usecases/foodRequest/postFoodRequest";
+import { foodRequestModel } from "../../../framework/database/models/foodRequestModel";
+import { foodRequestRepositoryEmpl } from "../../../framework/repository/foodRequestRepository";
+import { postFoodRequest } from "../../../app/usecases/foodRequest/postFoodRequest";
 
 
 const foodRequestRepository = foodRequestRepositoryEmpl(foodRequestModel);

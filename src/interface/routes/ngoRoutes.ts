@@ -5,6 +5,7 @@ import loginController from "../controllers/ngo/ngoAuthnetication/loginControlle
 import removeAccountController from "../controllers/ngo/ngoAuthnetication/removeAccountController";
 import stepOneController from "../controllers/ngo/ngoAuthnetication/signupController/stepOneController"
 import stepTwoController from "../controllers/ngo/ngoAuthnetication/signupController/stepTwoController";
+import resetNgoPasswordController from "../controllers/ngo/ngoAuthnetication/resetNgoPasswordController";
 
 
 // middlewares
@@ -14,8 +15,8 @@ import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
 // validator middlewares
 import {loginValidator,ngoSignupTow,signupValidatorOne,} from "../../middleware/requestValidator";
 import { ngoAuthorization } from "../../middleware";
-import { getAcceptedRequestsController, getCompletedRequestsController, getPendingRequestsContorller, getSelectedRequest } from "../controllers/ngo/foodRequestManage/getRequestsController";
-import { acceptRequestController, completeRequestController } from "../controllers/ngo/foodRequestManage/manageRequestsController";
+import { getAcceptedRequestsController, getCompletedRequestsController, getPendingRequestsContorller, getSelectedRequest } from "../controllers/foodRequestManage/getRequestsController";
+import { acceptRequestController, completeRequestController } from "../controllers/foodRequestManage/manageRequestsController";
 
 const router = Router();
 
@@ -38,6 +39,9 @@ router.patch("/remove/account/:id",ngoAuthorization, removeAccountController);
 
 // PATCH requests
 router.patch("/accept/request/:id",ngoAuthorization, acceptRequestController)
-router.patch("/complete/request/:id",ngoAuthorization, completeRequestController);
+router.patch("/complete/request/:id", ngoAuthorization, completeRequestController);
+
+// PATCH Reset Password
+router.patch("/reset/password", ngoAuthorization, loginValidator, resetNgoPasswordController);
 
 export default router;

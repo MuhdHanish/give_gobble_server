@@ -3,8 +3,9 @@ import { Router } from "express";
 // controllers
 import restaurantStepOneController from "../controllers/restaurant/restaurantAuthenticationControllers/signupController/stepOneController";
 import restaurantStepTwoController from "../controllers/restaurant/restaurantAuthenticationControllers/signupController/stepTwoController";
+import resetRestaurantPasswordController from "../controllers/restaurant/restaurantAuthenticationControllers/restRestaurantPassword";
 import restaurantLoginController from "../controllers/restaurant/restaurantAuthenticationControllers/loginController"
-import postFoodRequestController from "../controllers/ngo/foodRequestManage/postRequestController";
+import postFoodRequestController from "../controllers/foodRequestManage/postRequestController";
 
 // middlewares
 import otpAuthMiddleware from "../../middleware/otpAuthMiddleware";
@@ -30,6 +31,9 @@ router.post("/register/steptwo/:id",restaurantSignupTwo,otpAuthMiddleware,restau
 router.post("/login", loginValidator, restaurantLoginController);
 
 // POST Food Requeset
-router.post("/post/food/request",userAuthorization,postFoodRequestController)
+router.post("/post/food/request", userAuthorization, postFoodRequestController)
+
+// PATCH Reset Password
+router.patch("/reset/password", userAuthorization, loginValidator, resetRestaurantPasswordController);
 
 export default router;

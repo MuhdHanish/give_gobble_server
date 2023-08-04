@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { foodRequestModel } from "../../../../framework/database/models/foodRequestModel";
-import { foodRequestRepositoryEmpl } from "../../../../framework/repository/foodRequestRepository";
-import { userRepositoryEmpl } from "../../../../framework/repository/userRepository";
-import { getAcceptedRequests, getCompletedRequests, getPendingRequests, getSelectedFoodRequest } from "../../../../app/usecases/foodRequest/getFoodRequests";
-import { getUserById } from "../../../../app/usecases/user/getUserById";
-import { getRestaurantById } from "../../../../app/usecases/restaurant/getRestaurantById";
-import { userModel } from "../../../../framework/database/models/userModel";
-import { restaurantRespositoryEmpl } from "../../../../framework/repository/restaurantRepository";
-import { restaurantModel } from "../../../../framework/database/models/restaurantModel";
+import { foodRequestModel } from "../../../framework/database/models/foodRequestModel";
+import { foodRequestRepositoryEmpl } from "../../../framework/repository/foodRequestRepository";
+import { userRepositoryEmpl } from "../../../framework/repository/userRepository";
+import { getAcceptedRequests, getCompletedRequests, getPendingRequests, getSelectedFoodRequest } from "../../../app/usecases/foodRequest/getFoodRequests";
+import { getUserById } from "../../../app/usecases/user/getUserById";
+import { getRestaurantById } from "../../../app/usecases/restaurant/getRestaurantById";
+import { userModel } from "../../../framework/database/models/userModel";
+import { restaurantRespositoryEmpl } from "../../../framework/repository/restaurantRepository";
+import { restaurantModel } from "../../../framework/database/models/restaurantModel";
 
 const foodRequestRepository = foodRequestRepositoryEmpl(foodRequestModel);
 const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);
