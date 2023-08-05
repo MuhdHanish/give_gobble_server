@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { rejectNgo } from "../../../app/usecases/ngo/rejectNgo";
-import { acceptNgo } from "../../../app/usecases/ngo/acceptNgo";
 import { ngoModel } from "../../../framework/database/models/ngoModel";
 import { ngoRepositroyEmpl } from "../../../framework/repository/ngoRespository";
+import { acceptNgo } from "../../../app/usecases/ngo/accountVerify/acceptNgo";
+import { rejectNgo } from "../../../app/usecases/ngo/accountVerify/rejectNgo";
 
 const ngoRepository = ngoRepositroyEmpl(ngoModel);
 

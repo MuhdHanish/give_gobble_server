@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ngoModel } from "../../../../framework/database/models/ngoModel";
 import { ngoRepositroyEmpl } from "../../../../framework/repository/ngoRespository";
-import { removeNgoAccount } from "../../../../app/usecases/ngo/removeNgoAccount";
+import { removeNgoAccount } from "../../../../app/usecases/ngo/ngoAuthentication/removeNgoAccount";
 
 
 const ngoRepository = ngoRepositroyEmpl(ngoModel);

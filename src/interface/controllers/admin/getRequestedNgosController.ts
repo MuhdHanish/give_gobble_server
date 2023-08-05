@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ngoModel } from "../../../framework/database/models/ngoModel";
 import { ngoRepositroyEmpl } from "../../../framework/repository/ngoRespository";
-import { getRequestedNgos } from "../../../app/usecases/ngo/foodRequestVerify/getNgoRequest";
+import { getRequestedNgos } from "../../../app/usecases/ngo/accountVerify/getNgoRequest";
 
 const ngoRepository = ngoRepositroyEmpl(ngoModel);
 
