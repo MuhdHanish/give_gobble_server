@@ -10,8 +10,8 @@ const forgotNgoPasswordController = async (req: Request, res: Response) => {
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  const { identfier } = req.body;
-  const uId = await forgotNgoPassword(ngoRepository)(identfier);
+  const { identifier } = req.body;
+  const uId = await forgotNgoPassword(ngoRepository)(identifier);
   if (uId) {
     return res.status(200).json({ uId });
   } else {

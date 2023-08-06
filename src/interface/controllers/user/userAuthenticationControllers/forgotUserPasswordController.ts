@@ -10,8 +10,8 @@ const forgotUserPasswordController = async (req: Request, res: Response) => {
  try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  const { identfier } = req.body;
-  const  uId  = await forgotUserPassword(userRepository)(identfier);
+  const { identifier } = req.body;
+  const  uId  = await forgotUserPassword(userRepository)(identifier);
   if (uId) {
     return res.status(200).json({ uId });
   } else {
