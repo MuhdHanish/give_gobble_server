@@ -14,7 +14,7 @@ const foodRequestRepository = foodRequestRepositoryEmpl(foodRequestModel);
 const restaurantRepository = restaurantRespositoryEmpl(restaurantModel);
 const userRepository = userRepositoryEmpl(userModel);
 
-export const getSelectedRequest = async (req: Request, res: Response) => {
+export const getSelectedRequestController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const selectedRequest = await getSelectedFoodRequest(foodRequestRepository)(id);

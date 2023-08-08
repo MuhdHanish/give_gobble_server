@@ -20,7 +20,7 @@ router.post("/login", loginValidator, adminLoginController);
 router.get("/get/ngo/requests",adminAuthorization,getRequestedNgosController);
 
 // PATCH 
-router.patch("/accept/ngo/:id",adminAuthorization,acceptNgoController);
-router.patch("/reject/ngo/:id",adminAuthorization,rejectNgoController);
+router.patch("/accept/ngo/:id([0-9a-fA-F]{24})",adminAuthorization,acceptNgoController);
+router.patch("/reject/ngo/:id([0-9a-fA-F]{24})",adminAuthorization,rejectNgoController);
 
 export default router;

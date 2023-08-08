@@ -6,7 +6,7 @@ import removeAccountController from "../controllers/ngo/ngoAuthnetication/remove
 import stepOneController from "../controllers/ngo/ngoAuthnetication/signupController/stepOneController"
 import stepTwoController from "../controllers/ngo/ngoAuthnetication/signupController/stepTwoController";
 import resetNgoPasswordController from "../controllers/ngo/ngoAuthnetication/resetNgoPasswordController";
-import { getAcceptedRequestsController, getCompletedRequestsController, getPendingRequestsContorller, getSelectedRequest } from "../controllers/foodRequestManage/getRequestsController";
+import { getAcceptedRequestsController, getCompletedRequestsController, getPendingRequestsContorller, getSelectedRequestController } from "../controllers/foodRequestManage/getRequestsController";
 import { acceptRequestController, completeRequestController } from "../controllers/foodRequestManage/manageRequestsController";
 import forgotNgoPasswordController from "../controllers/ngo/ngoAuthnetication/forgotNgoPasswordController";
 
@@ -34,14 +34,14 @@ router.get("/get/pending/requests",ngoAuthorization,getPendingRequestsContorller
 router.get("/get/accepted/requests", ngoAuthorization, getAcceptedRequestsController);
 router.get("/get/completed/requests", ngoAuthorization,  getCompletedRequestsController);
 
-router.get("/get/seleted/request/:id", ngoAuthorization,  getSelectedRequest);
+router.get("/get/selected/request/:id([0-9a-fA-F]{24})", ngoAuthorization,  getSelectedRequestController);
 
 // PATCH account
-router.patch("/remove/account/:id",ngoAuthorization, removeAccountController);
+router.patch("/remove/account/:id([0-9a-fA-F]{24})",ngoAuthorization, removeAccountController);
 
 // PATCH requests
-router.patch("/accept/request/:id",ngoAuthorization, acceptRequestController)
-router.patch("/complete/request/:id", ngoAuthorization, completeRequestController);
+router.patch("/accept/request/:id([0-9a-fA-F]{24})",ngoAuthorization, acceptRequestController)
+router.patch("/complete/request/:id([0-9a-fA-F]{24})", ngoAuthorization, completeRequestController);
 
 // POST Forgot password request
 router.post("/forgot/password", forgotPasswordValidator, forgotNgoPasswordController);
