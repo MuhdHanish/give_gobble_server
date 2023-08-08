@@ -2,7 +2,6 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import session from "express-session";
 
 // import dotenv
 import { config } from "dotenv";
@@ -12,7 +11,7 @@ config();
 import connnectDatabase from "./src/framework/database/config/dbConfig";
 
 // import the route file
-import { adminRoutes, userRoutes,ngoRoutes,restaurantRotues } from "./src/interface/routes";
+import { adminRoutes, userRoutes,ngoRoutes,restaurantRotues, tokenRoute } from "./src/interface/routes";
 
 // creat express application
 const app = express();
@@ -34,6 +33,9 @@ app.use('/', userRoutes);
 app.use('/ngo', ngoRoutes);
 app.use('/admin', adminRoutes);
 app.use('/restaurant', restaurantRotues);
+
+// token route
+app.use("/refresh/token", tokenRoute);
 
 // database connecting & app listen
 const port = process.env.PORT || 8000;
