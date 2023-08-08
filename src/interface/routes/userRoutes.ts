@@ -7,6 +7,7 @@ import resetUserPasswordController from "../controllers/user/userAuthenticationC
 import userLoginController from "../controllers/user/userAuthenticationControllers/loginController";
 import postFoodRequestController from "../controllers/foodRequestManage/postRequestController";
 import forgotUserPasswordController from "../controllers/user/userAuthenticationControllers/forgotUserPasswordController";
+import { getRequestHistoryController, removeAllRequestFromHistoryController, removeRequestFromHistoryController } from "../controllers/foodRequestManage/historyController/historyController";
 
 // middlewares
 import { userAuthorization } from "../../middleware";
@@ -21,7 +22,6 @@ import {
   signupValidatorOne,
   signupValidatorTwo,
 } from "../../middleware/requestValidator";
-import { getRequestHistoryController, removeAllRequestFromHistoryController, removeRequestFromHistoryController } from "../controllers/foodRequestManage/historyController/historyController";
 
 const router = Router();
 

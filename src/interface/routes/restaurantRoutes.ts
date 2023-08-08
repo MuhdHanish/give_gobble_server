@@ -7,6 +7,7 @@ import resetRestaurantPasswordController from "../controllers/restaurant/restaur
 import restaurantLoginController from "../controllers/restaurant/restaurantAuthenticationControllers/loginController"
 import postFoodRequestController from "../controllers/foodRequestManage/postRequestController";
 import forgotRestaurantPasswordController from "../controllers/restaurant/restaurantAuthenticationControllers/forgotRestaurantPasswordController";
+import { getRequestHistoryController, removeAllRequestFromHistoryController, removeRequestFromHistoryController } from "../controllers/foodRequestManage/historyController/historyController";
 
 // middlewares
 import { userAuthorization } from "../../middleware";
@@ -44,5 +45,13 @@ router.post("/verify/password/request/:id", otpPasswordVerifyMiddleware);
 
 // PATCH Reset Password
 router.patch("/reset/password", loginValidator, resetRestaurantPasswordController);
+
+
+// GET Request history
+router.get("/get/request/history/:id([0-9a-fA-F]{24})", userAuthorization, getRequestHistoryController);
+
+// DELETE Remove request
+router.delete("/delete/request/history/:idid([0-9a-fA-F]{24})", userAuthorization, removeRequestFromHistoryController);
+router.delete("/delete/all/request/history/:id([0-9a-fA-F]{24})", userAuthorization, removeAllRequestFromHistoryController);
 
 export default router;
