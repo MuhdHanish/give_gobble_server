@@ -10,6 +10,9 @@ export type foodRequestRepository = {
   getPendingRequests: () => Promise<FoodRequest[] | null>;
   getAcceptedRequests: () => Promise<FoodRequest[] | null>;
   getCompletedRequests: () => Promise<FoodRequest[] | null>;
+  getRequestHistory: (userId:string) => Promise<FoodRequest[]|null>
+  removeRequestFromHistory: (requestId:string) => Promise<FoodRequest|null>
+  removeAllRequestFromHistory: (userId:string) => Promise<boolean|null>
 };
 
 export const foodRequestRepositoryEmpl = (foodRequstModel: MongoDBFoodRequest): foodRequestRepository => {
@@ -106,6 +109,42 @@ export const foodRequestRepositoryEmpl = (foodRequstModel: MongoDBFoodRequest): 
     }
   }
 
+  const getRequestHistory = async (userId: string): Promise<FoodRequest[] | null> => {
+     try {
+       const history = await foodRequstModel.find({ userId });
+       if (history) {
+         return history
+       }
+       return null;
+    } catch (error) {
+      console.error("Error while getting user requests history", error);
+      return null;
+    }
+  }
+
+  const removeRequestFromHistory = async (requestId: string): Promise<FoodRequest | null> => {
+     try {
+     const removedRequest = await foodRequstModel.findByIdAndDelete(requestId );
+       if (removedRequest) {
+       return removedRequest.toObject()
+       }
+       return null;
+    } catch (error) {
+      console.error("Error while getting removing request from history", error);
+      return null;
+    }
+  }
+
+  const removeAllRequestFromHistory = async (userId: string): Promise< boolean | null> => {
+     try {
+       const deleteResult = await foodRequstModel.deleteMany({ userId });
+       return deleteResult ? true : false;
+    } catch (error) {
+      console.error("Error while getting removing all request from history", error);
+      return null;
+    }
+  }
+
   const getCompletedRequests = async (): Promise<FoodRequest[] | null> => {
     try {
       const completedRequests = await foodRequstModel.find({ status: "Completed" });
@@ -123,5 +162,8 @@ export const foodRequestRepositoryEmpl = (foodRequstModel: MongoDBFoodRequest): 
     getPendingRequests,
     getAcceptedRequests,
     getCompletedRequests,
+    getRequestHistory,
+    removeAllRequestFromHistory,
+    removeRequestFromHistory
   };
 };
