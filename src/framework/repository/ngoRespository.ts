@@ -12,6 +12,7 @@ export type ngoRepository = {
   rejectNgo: (ngoId: string) => Promise<Ngo | null>;
   removeNgoAccount: (ngoId: string) => Promise<Ngo | null>;
   resetNgoPassword: (usernameOrEmail: string, newPassword: string) => Promise<Ngo | null>;
+  getAllAcceptedNgos: () => Promise<Ngo[] | null>;
 
 };
 
@@ -35,6 +36,15 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   }
   return null;
   };
+
+  const getAllAcceptedNgos = async (): Promise<Ngo[] | null> =>{
+    const users = await ngoModel
+      .find({
+        $and: [{ isVerified: true }, { isRejected: false }],
+      })
+      .exec();
+    return users.length > 0 ? users : null;
+  }
 
    const findByUsernameOrEmail = async (usernameOrEmail: string): Promise<Ngo | null> => {
     try {
@@ -143,6 +153,7 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
     findByUsernameAndEmail,
     findByUsernameOrEmailAndPassword,
     findByUsernameOrEmail,
+    getAllAcceptedNgos,
     getNotVerifiedNgos,
     createUser,
     acceptNgo,
