@@ -41,7 +41,7 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
     const users = await ngoModel
       .find({
         $and: [{ isVerified: true }, { isRejected: false }],
-      })
+      },{password:0})
       .exec();
     return users.length > 0 ? users : null;
   }
