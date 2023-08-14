@@ -5,9 +5,14 @@ import { getAllAcceptedNgos } from "../../../app/usecases/ngo/getAllAcceptedNgos
 
 const ngoRespository = ngoRepositroyEmpl(ngoModel);
 
- const getAllAcceptedNgosController = async (req: Request, res: Response) => {
+interface CustomRequest extends Request {
+  userInfo?: { id: string; role: string };
+}
+
+
+ const getAllAcceptedNgosController = async (req: CustomRequest, res: Response) => {
  try {
-  const ngos = await getAllAcceptedNgos(ngoRespository)();
+  const ngos = await getAllAcceptedNgos(ngoRespository)(req.userInfo?.id as string);
   return res.status(201).json({ message: "Fetched ngos sucessfully" , ngos });
  } catch (error) {
   return res.status(500).json({ message: "Internal server error" });

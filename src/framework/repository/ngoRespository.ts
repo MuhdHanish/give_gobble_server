@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Ngo } from "../../domain/models/Ngo";
 import { MongDBNgo } from "../database/models/ngoModel";
 import bcrypt from "bcryptjs";
@@ -12,7 +13,7 @@ export type ngoRepository = {
   rejectNgo: (ngoId: string) => Promise<Ngo | null>;
   removeNgoAccount: (ngoId: string) => Promise<Ngo | null>;
   resetNgoPassword: (usernameOrEmail: string, newPassword: string) => Promise<Ngo | null>;
-  getAllAcceptedNgos: () => Promise<Ngo[] | null>;
+  getAllAcceptedNgos: (id:string) => Promise<Ngo[] | null>;
 
 };
 
@@ -37,14 +38,21 @@ export const ngoRepositroyEmpl = (ngoModel: MongDBNgo): ngoRepository => {
   return null;
   };
 
-  const getAllAcceptedNgos = async (): Promise<Ngo[] | null> =>{
+  const getAllAcceptedNgos = async (id: string): Promise<Ngo[] | null> => {
     const users = await ngoModel
-      .find({
-        $and: [{ isVerified: true }, { isRejected: false }],
-      },{password:0})
+      .find(
+        {
+          $and: [
+            { isVerified: true },
+            { isRejected: false },
+            { _id: { $ne: new mongoose.Types.ObjectId(id) } },
+          ],
+        },
+        { password: 0 }
+      )
       .exec();
     return users.length > 0 ? users : null;
-  }
+  };
 
    const findByUsernameOrEmail = async (usernameOrEmail: string): Promise<Ngo | null> => {
     try {
