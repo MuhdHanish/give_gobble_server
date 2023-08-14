@@ -48,7 +48,7 @@ router.patch("/reset/password", loginValidator, resetUserPasswordController);
 router.get("/get/request/history/:id([0-9a-fA-F]{24})", userAuthorization, getRequestHistoryController);
 
 // DELETE Remove request
-router.delete("/delete/request/history/:idid([0-9a-fA-F]{24})", userAuthorization, removeRequestFromHistoryController);
+router.delete("/delete/request/history/:id([0-9a-fA-F]{24})", userAuthorization, removeRequestFromHistoryController);
 router.delete("/delete/all/request/history/:id([0-9a-fA-F]{24})", userAuthorization, removeAllRequestFromHistoryController);
 
 export default router;
