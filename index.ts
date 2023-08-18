@@ -1,4 +1,5 @@
 // import dependencies
+import { Socket } from "socket.io";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -17,10 +18,11 @@ import { adminRoutes, userRoutes,ngoRoutes,restaurantRotues, tokenRoute } from "
 const app = express();
 
 // cors setting
+const allowedOrigins = ["*", process.env.CORS_ORIGIN_URL as string];
 app.use(
   cors({
-    origin: ["*"],
-    methods: ["GET", "POST", "PUT","PATCH", "DELETE"],
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   })
 );
 
@@ -42,6 +44,19 @@ const port = process.env.PORT || 8000;
 connnectDatabase()
   .then((res) => {
     console.log(res);
-    app.listen(port, (): void => console.log(`Server running...`));
+    const server = app.listen(port, (): void => console.log(`Server running...`));
+    const io = require("socket.io")(server, {
+      pingTimeout: 60000,
+      cors: {
+        origin: allowedOrigins,
+      },
+    });
+    io.on("connection", (socket: Socket) => {
+      console.log('connected to socket...');
+      socket.on("setup", (data:string) => {
+        console.log(data);
+        socket.emit("response", "hello bwoy")
+      });
+    });
   })
   .catch((error) => console.log(`Failed to connect database`, error));

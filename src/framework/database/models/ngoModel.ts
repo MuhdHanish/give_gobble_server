@@ -21,4 +21,6 @@ const ngoSchema = new Schema<Ngo>({
   },
 });
 
-export const ngoModel: MongDBNgo = mongoose.connection.model<Document<any, any, any> & Ngo>("Ngo", ngoSchema);
+export const ngoModel: MongDBNgo = mongoose.connection.model<
+  Document<any, any, any> & Ngo
+>("Ngo", ngoSchema);
