@@ -1,0 +1,13 @@
+import mongoose, { Model, Schema, Document } from "mongoose";
+import { Message } from "../../../domain/models/Message";
+
+export type MongoDBFoodRequest = Model<Document<any, any, any> & Message>;
+
+const messageSchema = new Schema<Message>({
+  sender: { type: mongoose.Types.ObjectId, ref: "Ngo" },
+  content: { type: String, trim: true}
+});
+
+export const messageModel: MongoDBFoodRequest = mongoose.connection.model<
+  Document<any, any, any> & Message
+>("Message", messageSchema);

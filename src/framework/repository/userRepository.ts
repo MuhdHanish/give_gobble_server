@@ -73,7 +73,7 @@ export const userRepositoryEmpl = (userModel: MongoDBUser): userRepository => {
     }
   };
 
-const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | null> => {
+  const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | null> => {
   try {
     const user = await userModel.findById(userId).exec();
     if (user) {
@@ -85,7 +85,8 @@ const findUserById = async (userId: mongoose.Types.ObjectId): Promise<User | nul
     console.error("Error finding restaurant by Id:", error);
     return null;
   }
-}; 
+  };
+  
   const createUser = async (user: User): Promise<User | null> => {
     try {
       const hashPass: string = bcrypt.hashSync(user.password as string, 12);

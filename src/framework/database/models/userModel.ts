@@ -8,7 +8,7 @@ const userSchema = new Schema<User>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   location: { type: String, required: true },
-  role: {type:String,required: true, default:"user"},
+  role: { type: String, required: true, default: "user" },
   status: { type: Boolean, required: true, default: true },
   profile: {
     type: String,
@@ -17,4 +17,4 @@ const userSchema = new Schema<User>({
   },
 });
 
-export const userModel: MongoDBUser = mongoose.connection.model<Document<any, any, any> & User>('User', userSchema);
+export const userModel: MongoDBUser = mongoose.connection.model<Document<any, any, any> & User>("User", userSchema);

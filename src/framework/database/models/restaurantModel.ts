@@ -9,7 +9,7 @@ const restaurantSchema = new Schema<Restaurant>({
   password: { type: String, required: true },
   location: { type: String, required: true },
   status: { type: Boolean, required: true, default: true },
-  role: {type:String, required:true, default:"restaurant"},
+  role: { type: String, required: true, default: "restaurant" },
   profile: {
     type: String,
     default:
@@ -17,6 +17,4 @@ const restaurantSchema = new Schema<Restaurant>({
   },
 });
 
-export const restaurantModel: MongoDDRestaurant = mongoose.connection.model<
-  Document<any, any, any> & Restaurant
->("Restaurant", restaurantSchema);
+export const restaurantModel: MongoDDRestaurant = mongoose.connection.model<Document<any, any, any> & Restaurant>("Restaurant", restaurantSchema);

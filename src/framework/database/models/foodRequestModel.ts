@@ -9,9 +9,9 @@ const foodRequestSchema = new Schema<FoodRequest>({
   quantity: { type: Number, required: true },
   time: { type: String, required: true },
   location: { type: String, required: true },
-  userRole: {type:String,required:true},
+  userRole: { type: String, required: true },
   isAccepted: { type: Boolean, required: true, default: false },
-  status: {type:String,required:true,default: "Pending"},
+  status: { type: String, required: true, default: "Pending" },
   image: {
     type: String,
     required: true,
