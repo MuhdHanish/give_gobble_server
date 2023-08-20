@@ -14,6 +14,9 @@ import connnectDatabase from "./src/framework/database/config/dbConfig";
 // import the route file
 import { adminRoutes, userRoutes,ngoRoutes,restaurantRotues, tokenRoute } from "./src/interface/routes";
 
+// required a model
+import { Ngo } from "./src/domain/models/Ngo";
+
 // creat express application
 const app = express();
 
@@ -53,10 +56,24 @@ connnectDatabase()
     });
     io.on("connection", (socket: Socket) => {
       console.log('connected to socket...');
-      socket.on("setup", (data:string) => {
-        console.log(data);
-        socket.emit("response", "hello bwoy")
+      socket.on("setup", () => {
+         socket.join("ngo_group"); 
+         socket.emit("connected");
+      });
+      socket.on("joinChat", () => {
+        socket.join("ngo_group");
+        console.log(`Ngo joined room: ngo_group`);
+      });
+      socket.on("typing", () => socket.to("ngo_group").emit("typing"));
+      socket.on("stop typing", () => socket.to("ngo_group").emit("stop typing"));
+      socket.on("newMessage", (newMessageRecieved) => {
+        let chat = newMessageRecieved?.chat;
+         if (!chat?.users) return console.log(`chat. user not defined`);
+         chat?.users.forEach((user:Ngo) => {
+          if (user?._id === newMessageRecieved?.sender?._id) return;
+          socket.to(user?._id?.toString() as string).emit("messageRecieved", newMessageRecieved);
+        });
       });
     });
   })
-  .catch((error) => console.log(`Failed to connect database`, error));
+  .catch((error) => console.error(`Failed to connect database`, error));

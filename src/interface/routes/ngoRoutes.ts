@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 // controllers
 import loginController from "../controllers/ngo/ngoAuthnetication/loginController";
