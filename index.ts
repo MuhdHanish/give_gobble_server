@@ -55,9 +55,9 @@ connnectDatabase()
       },
     });
     io.on("connection", (socket: Socket) => {
-    socket.on("joinChat", () => { socket.join("ngo_group");socket.emit("ngoJoined","Ngo joined to the chat"); });
-    socket.on("typing", () => socket.to("ngo_group").emit("typing","Typing"));
-    socket.on("stopTyping", () => socket.to("ngo_group").emit("stopTyping", "Stop typing"));
+    socket.on("joinChat", () => { socket.join("ngo_group");socket.emit("ngoJoined"); });
+    socket.on("typing", () => socket.to("ngo_group").emit("typing"));
+    socket.on("stopTyping", () => socket.to("ngo_group").emit("stopTyping"));
     socket.on("newMessage", (newMessage) => {socket.to("ngo_group").emit("messageRecieved", newMessage);});
   });
   })
