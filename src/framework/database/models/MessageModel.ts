@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema, Document } from "mongoose";
 import { Message } from "../../../domain/models/Message";
 
-export type MongoDBFoodRequest = Model<Document<any, any, any> & Message>;
+export type MongoDBMessage = Model<Document<any, any, any> & Message>;
 
 const messageSchema = new Schema<Message>({
   sender: { type: mongoose.Types.ObjectId, ref: "Ngo" },
@@ -9,6 +9,6 @@ const messageSchema = new Schema<Message>({
   
 });
 
-export const messageModel: MongoDBFoodRequest = mongoose.connection.model<
+export const messageModel: MongoDBMessage = mongoose.connection.model<
   Document<any, any, any> & Message
 >("Message", messageSchema);

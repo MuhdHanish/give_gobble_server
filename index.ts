@@ -55,25 +55,10 @@ connnectDatabase()
       },
     });
     io.on("connection", (socket: Socket) => {
-      console.log('connected to socket...');
-      socket.on("setup", () => {
-         socket.join("ngo_group"); 
-         socket.emit("connected");
-      });
-      socket.on("joinChat", () => {
-        socket.join("ngo_group");
-        console.log(`Ngo joined room: ngo_group`);
-      });
-      socket.on("typing", () => socket.to("ngo_group").emit("typing"));
-      socket.on("stop typing", () => socket.to("ngo_group").emit("stop typing"));
-      socket.on("newMessage", (newMessageRecieved) => {
-        let chat = newMessageRecieved?.chat;
-         if (!chat?.users) return console.log(`chat. user not defined`);
-         chat?.users.forEach((user:Ngo) => {
-          if (user?._id === newMessageRecieved?.sender?._id) return;
-          socket.to(user?._id?.toString() as string).emit("messageRecieved", newMessageRecieved);
-        });
-      });
-    });
+    socket.on("joinChat", () => { socket.join("ngo_group");socket.emit("ngoJoined","Ngo joined to the chat"); });
+    socket.on("typing", () => socket.to("ngo_group").emit("typing","Typing"));
+    socket.on("stopTyping", () => socket.to("ngo_group").emit("stopTyping", "Stop typing"));
+    socket.on("newMessage", (newMessage) => {socket.to("ngo_group").emit("messageRecieved", newMessage);});
+  });
   })
   .catch((error) => console.error(`Failed to connect database`, error));

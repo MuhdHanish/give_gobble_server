@@ -8,6 +8,10 @@ export const forgotPasswordValidator = [
   body("identifier").notEmpty().withMessage("Identifier is required (username or email)"),
 ];
 
+export const sendMessageValidator = [
+  body("message").notEmpty().withMessage("Message is required"),
+];
+
 export const signupValidatorOne = [
   body("username").notEmpty().withMessage("Username is required"),
   body("email").notEmpty().withMessage("Email is required"),

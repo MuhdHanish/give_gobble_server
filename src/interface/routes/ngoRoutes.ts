@@ -17,9 +17,10 @@ import otpPasswordVerifyMiddleware from "../../middleware/otpPasswordVerifyMidde
 
 
 // validator middlewares
-import {forgotPasswordValidator, loginValidator,ngoSignupTow,signupValidatorOne,} from "../../middleware/requestValidator";
+import {forgotPasswordValidator, loginValidator,ngoSignupTow,sendMessageValidator,signupValidatorOne,} from "../../middleware/requestValidator";
 import { ngoAuthorization } from "../../middleware";
 import getAllAcceptedNgosController from "../controllers/ngo/getAllAcceptedNgosControlle";
+import { getAllMessagesController, sendMessageController } from "../controllers/message/messageController";
 
 const router = Router();
 
@@ -35,6 +36,12 @@ router.get("/get/pending/requests",ngoAuthorization,getPendingRequestsContorller
 router.get("/get/accepted/requests", ngoAuthorization, getAcceptedRequestsController);
 router.get("/get/completed/requests", ngoAuthorization, getCompletedRequestsController);
 router.get("/get/all/accepted/ngos", ngoAuthorization, getAllAcceptedNgosController);
+
+// GET messages
+router.get("/get/all/messages", ngoAuthorization, getAllMessagesController);
+
+// POST message
+router.post("/post/new/message", ngoAuthorization, sendMessageValidator, sendMessageController);
 
 router.get("/get/selected/request/:id([0-9a-fA-F]{24})", ngoAuthorization,  getSelectedRequestController);
 

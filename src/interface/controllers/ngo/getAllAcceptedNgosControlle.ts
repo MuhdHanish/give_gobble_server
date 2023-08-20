@@ -9,7 +9,6 @@ interface CustomRequest extends Request {
   userInfo?: { id: string; role: string };
 }
 
-
  const getAllAcceptedNgosController = async (req: CustomRequest, res: Response) => {
  try {
   const ngos = await getAllAcceptedNgos(ngoRespository)(req.userInfo?.id as string);
