@@ -22,7 +22,8 @@ export const messageRepositoryEmpl = (messageModel: MongoDBMessage): messageRepo
       content: message,
     });
     const savedMessage = await messageModel.create(newMessage);
-    return savedMessage ? savedMessage.toObject() : null;
+    const sendedMessage = await savedMessage.populate("sender", "username email profile");
+    return sendedMessage ? sendedMessage.toObject() : null;
   };
 
   return {
