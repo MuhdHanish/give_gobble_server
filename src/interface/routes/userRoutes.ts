@@ -25,6 +25,9 @@ import {
 
 const router = Router();
 
+// GET Inital get
+router.get("/", (req, res) => { return res.status(200) });
+
 // POST user signup
 router.post("/register/stepone", signupValidatorOne, userStepOneController);
 router.post("/register/steptwo/:id",signupValidatorTwo,otpAuthMiddleware,userStepTwoController);
