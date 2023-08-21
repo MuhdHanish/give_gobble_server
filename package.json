@@ -1,14 +1,12 @@
 {
-  "name": "en-code-server",
+  "name": "give-and-gobble-server",
   "version": "1.0.0",
   "description": "The server side of Encode is built with Node.js and uses a clean architecture with TypeScript. It powers the backend functionality of the web application.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "npx tsc --outDir dist",
     "build": "npx tsc --outDir dist",
-    "start": "node dist/index.js",
-    "install": "npm install" 
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
