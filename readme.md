@@ -30,7 +30,6 @@ npm install
 
 npm start
 
-
 The server will start running on the specified port (default is 8000).
 
 ## Environment Variables
